@@ -1,1 +1,0 @@
-/home/aron/.config/fish/
