@@ -1,23 +1,3 @@
-function fish_prompt
-  if test -z $WINDOW
-   printf '{%s%s%s at %s%s%s%s%s%s%s}$ ' (set_color "#FFFF00") (echo "Aron") (set_color "#00FF00") (set_color "#FFFF00") (hostname|cut -d . -f 1) (set_color $fish_color_cwd) (prompt_pwd)(set_color "#FFFF00") (__fish_git_prompt) (set_color normal)
- else 
-	printf '{%s%s%s at %s%s%s(%s)%s%s%s%s}$ ' (set_color "#FFFF00") (echo "Aron") (set_color "#00FF00") (set_color "#FFFF00") (hostname|cut -d . -f 1) (set_color $fish_color_cwd) (echo $WINDOW) (prompt_pwd)(set_color "#FFFF00") (__fish_git_prompt) (set_color normal)
-   #printf '%s%s at %s%s%s(%s)%s%s%s$ ' (set_color white) (whoami) (set_color purple) (hostname|cut -d . -f 1) (set_color white) (echo $WINDOW) (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
- end
-end
-
-function fish_greeting
-	echo ""
-	set_color "#FFFF00"
-	echo ""
-	echo "Welcome to the Cyberspace"
-	echo "A consensual hallucination experienced daily by billions of legitimate operators, in every nation. We are all connected."
-	echo ""
-	echo "Powered by Hosaka ®"
-	echo ""	
-end
-
 function su
         /bin/su --shell=/usr/bin/fish $argv
 end
@@ -32,7 +12,8 @@ function update_pip
 end
 
 
-set -gx EDITOR nano
+alias vim="nvim"
+set -gx EDITOR vim
 set -gx ANT_ROOT /usr/bin
 set -gx NDK_ROOT /opt/android-ndk
 set -gx ANDROID_SDK_ROOT /opt/android-sdk
@@ -55,6 +36,19 @@ set -gx PATH $ARON_PYTHON_PATH $PATH
 set -gx NODE_PATH /usr/lib/node_modules/
 
 setenv SSH_ENV $HOME/.ssh/environment
+
+
+function loadTheme
+    set -gx BASE16_THEME (~/.config/fish/loadThemes.py)
+    eval sh ~/.config/base16-shell/scripts/base16-$BASE16_THEME.sh
+end
+
+function selectTheme
+    ~/.config/fish/loadThemes.py set
+    loadTheme
+end
+
+loadTheme
 
 function use_gcc5
     set -gx CC gcc-5

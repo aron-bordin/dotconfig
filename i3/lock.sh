@@ -29,6 +29,19 @@ then
         echo "done"
     done
 fi
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
-# i3lock  -I 10 -d -e -u -n -i /tmp/screen.png
-i3lock -e -u -n -i /tmp/screen.png
+
+lock() {
+    # dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+    i3lock -f -e -n -i /tmp/screen.png &
+    sleep 1
+}
+
+case "$1" in
+    lock) lock ;;
+    logout) i3-msg exit ;;
+    suspend) lock && systemctl suspend ;;
+    hibernate) lock && systemctl hibernate ;;
+    reboot) systemctl reboot ;;
+    shutdown) systemctl poweroff -i ;;
+esac
+exit 0

@@ -31,7 +31,7 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec termite
 bindsym $mod+Shift+Return exec xfce4-terminal --role=FloatingWindow
 
 # kill focused window
@@ -160,19 +160,21 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+focus_follows_mouse no
 
 bindsym $mod+r mode "resize"
 
+
 set $mode_system "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"
-set $Locker ~/.config/i3/lock.sh && sleep 1
+set $Locker ~/.config/i3/lock.sh
 
 mode $mode_system {
-	bindsym l exec --no-startup-id $Locker, mode "default"
-    	bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    	bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    	bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
-    	bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    	bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym l exec --no-startup-id $Locker lock, mode "default"
+   	bindsym e exec --no-startup-id $Locker logout, mode "default"
+   	bindsym s exec --no-startup-id $Locker suspend, mode "default"
+   	bindsym h exec --no-startup-id $Locker hibernate, mode "default"
+   	bindsym r exec --no-startup-id $Locker reboot, mode "default"
+   	bindsym Shift+s exec --no-startup-id $Locker shutdown, mode "default"  
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -227,7 +229,7 @@ bar {
 
 #bindsym $mod+shift+x exec i3lock
 bindsym --release $mod+shift+k exec xkill
-exec_always feh --bg-center /home/aron/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-max /home/aron/Pictures/wallpaper.jpg
 
 no_focus [window_role="pop-up"]
 
@@ -235,7 +237,9 @@ exec firefox
 exec spotify
 exec xchat
 exec skype
-exec --no-startup-id i3-msg 'workspace $workspaceTerminal; exec xfce4-terminal'
+
+exec --no-startup-id i3-msg 'workspace $workspaceCode; exec termite -e "tmux"'
+exec --no-startup-id i3-msg 'workspace $workspaceTerminal; exec termite'
 exec compton -f
 
 set $audioOutput @DEFAULT_SINK@
@@ -264,6 +268,10 @@ focus_on_window_activation urgent
 
 hide_edge_borders both
 new_window 1pixel
-for_window [class="^.*"] border pixel 1
-for_window [window_role="FloatingWindow"] floating enable
+for_window [class="^.*"] border 1pixel
+for_window [window_role="FloatingWindow"] floating enable border normal
+bindsym $mod+Shift+b border toggle
 bindsym Print exec teiler --screenshot
+
+exec xautolock -time 10 -locker "$Locker lock"
+exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
