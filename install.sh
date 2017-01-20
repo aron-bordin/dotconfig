@@ -22,3 +22,8 @@ echo "Done with symlinks"
 
 echo "Installing deps"
 
+rm -rf /home/aron/.config/base16-shell
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+
+rm -rf /home/aron/.config/nvim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git /home/aron/.config/nvim/bundle/Vundle.vim
