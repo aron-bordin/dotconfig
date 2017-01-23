@@ -8,7 +8,7 @@ def setTheme(name):
     open('.theme', 'w').write(name)
     print(name)
 
-themes = [t.replace('base16-', '').replace('.theme', '').replace('.16', '') for t in os.listdir('/home/aron/.local/share/xfce4/terminal/colorschemes/')]
+themes = [t.replace('base16-', '').replace('.sh', '') for t in os.listdir('/home/aron/.config/base16-shell/scripts/')]
 themes = sorted(set(themes))
 name = None
 if os.path.isfile('/home/aron/.config/fish/.theme'):

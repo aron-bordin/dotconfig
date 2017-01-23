@@ -24,14 +24,14 @@ set -gx ARON_PYTHON_PATH /home/aron/.local/bin
 
 set -gx LUA_PATH '/home/aron/.luarocks/share/lua/5.1/?.lua;/home/aron/.luarocks/share/lua/5.1/?/init.lua;/home/aron/Programming/GitHub/torch/install/share/lua/5.1/?.lua;/home/aron/Programming/GitHub/torch/install/share/lua/5.1/?/init.lua;./?.lua;/home/aron/Programming/GitHub/torch/install/share/luajit-2.1.0-beta1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua'
 set -gx LUA_CPATH '/home/aron/.luarocks/lib/lua/5.1/?.so;/home/aron/Programming/GitHub/torch/install/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so'
-set -gx PATH /home/aron/Programming/GitHub/torch/install/bin $PATH
+# set -gx PATH /home/aron/Programming/GitHub/torch/install/bin $PATH
 set -gx LD_LIBRARY_PATH /home/aron/Programming/GitHub/torch/install/lib $LD_LIBRARY_PATH
 set -gx DYLD_LIBRARY_PATH /home/aron/Programming/GitHub/torch/install/lib $DYLD_LIBRARY_PATH
 set -gx LUA_CPATH '/home/aron/Programming/GitHub/torch/install/lib/?.so;' $LUA_CPATH
 
 
-set -gx PATH $ARON_GEM_PATH $PATH
-set -gx PATH $CARGO_PATH $PATH
+# set -gx PATH $ARON_GEM_PATH $PATH
+# set -gx PATH $CARGO_PATH $PATH
 set -gx PATH $ARON_PYTHON_PATH $PATH
 set -gx NODE_PATH /usr/lib/node_modules/
 
