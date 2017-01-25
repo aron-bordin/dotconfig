@@ -5,7 +5,7 @@ import os
 from pick import pick
 
 def setTheme(name):
-    open('.theme', 'w').write(name)
+    open('/home/aron/.config/fish/.theme', 'w').write(name)
     print(name)
 
 themes = [t.replace('base16-', '').replace('.sh', '') for t in os.listdir('/home/aron/.config/base16-shell/scripts/')]

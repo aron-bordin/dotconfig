@@ -6,13 +6,14 @@ set nocompatible
 filetype off
 
 " Set the runtime path to include Vundle and initialize
-set rtp+=~/.config/nvim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 "let Vundle manage Vundle
 
 " ####### Plugins #########
 Plugin 'chriskempson/base16-vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'nvie/vim-flake8'
@@ -221,6 +222,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='luna'
 
 set incsearch
-nnoremap <C-L> :nohlsearch<CR><C-L>
+set hlsearch
+nnoremap <Leader><space> :noh<cr>
+let NERDTreeMapActivateNode='<space>'
 
-let g:hardtime_default_on = 1
+let &colorcolumn="80,".join(range(121,999),",")
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']

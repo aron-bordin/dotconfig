@@ -276,3 +276,5 @@ bindsym Print exec teiler --screenshot
 exec xautolock -time 10 -locker "$Locker lock"
 exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
+
+exec /usr/bin/setxkbmap -option "caps:swapescape"
