@@ -12,6 +12,7 @@ call vundle#begin()
 "let Vundle manage Vundle
 
 " ####### Plugins #########
+Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'gmarik/Vundle.vim'
@@ -23,6 +24,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'takac/vim-hardtime'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -171,7 +173,8 @@ set shell=/bin/bash
 
 " Autocompletion
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>g  :YcmCompleter GoTo<CR>
+map <leader>d  :YcmCompleter GoToDeclaration<CR>
 
 "python with virtualenv support
 py << EOF
@@ -228,3 +231,7 @@ let NERDTreeMapActivateNode='<space>'
 
 let &colorcolumn="80,".join(range(121,999),",")
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+set formatoptions-=t
+set updatetime=250
+
