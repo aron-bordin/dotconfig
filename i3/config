@@ -96,14 +96,16 @@ bindsym $mod+a focus parent
 set $workspaceHome "1|Home "
 set $workspaceCode "2|Code  "
 set $workspaceTerminal "3|Terminal "
+set $workspaceEditor "4|Editor "
 set $workspaceChat "9|Chat "
 set $workspaceMusic "10|Music "
+
 
 # switch to workspace
 bindsym $mod+1 workspace $workspaceHome
 bindsym $mod+2 workspace $workspaceCode
 bindsym $mod+3 workspace $workspaceTerminal
-bindsym $mod+4 workspace 4
+bindsym $mod+4 workspace $workspaceEditor
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
@@ -115,7 +117,7 @@ bindsym $mod+0 workspace $workspaceMusic
 bindsym $mod+Shift+1 move container to workspace $workspaceHome
 bindsym $mod+Shift+2 move container to workspace $workspaceCode
 bindsym $mod+Shift+3 move container to workspace $workspaceTerminal
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+4 move container to workspace $workspaceEditor
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
@@ -126,7 +128,8 @@ bindsym $mod+Shift+0 move container to workspace $workspaceMusic
 assign [class="Firefox"] $workspaceHome
 assign [class="Xchat"] $workspaceChat
 assign [class="Skype"] $workspaceChat
-#assign [class="Spotify"] $workspaceMusic
+assign [class="Unity"] $workspaceEditor
+assign [class="Gimp"] $workspaceEditor
 for_window [class="Spotify"] move to workspace $workspaceMusic
 
 
@@ -138,7 +141,8 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
+set $resizeMode "  "
+mode $resizeMode {
         # These bindings trigger as soon as you enter the resize mode
 
         # Pressing left will shrink the window’s width.
@@ -162,10 +166,10 @@ mode "resize" {
 }
 focus_follows_mouse no
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode $resizeMode
 
 
-set $mode_system "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"
+set $mode_system " System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"
 set $Locker ~/.config/i3/lock.sh
 
 mode $mode_system {
@@ -262,7 +266,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 
-bindsym $mod+d exec rofi -show run -width 100 -padding 500 -font "Caterell Regular 16"
+bindsym $mod+d exec rofi -show run -font "Caterell Regular 16"
  
 focus_on_window_activation urgent
 
@@ -277,4 +281,4 @@ exec xautolock -time 10 -locker "$Locker lock"
 exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
 
-exec /usr/bin/setxkbmap -option "caps:swapescape"
+exec --no-startup /usr/bin/setxkbmap -option "caps:swapescape"
