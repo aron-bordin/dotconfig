@@ -30,7 +30,6 @@ font pango:monospace
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec termite
 bindsym $mod+Shift+Return exec xfce4-terminal --role=FloatingWindow
 
@@ -138,7 +137,6 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 set $resizeMode "  "
@@ -237,14 +235,14 @@ exec_always --no-startup-id feh --bg-max /home/aron/Pictures/wallpaper.jpg
 
 no_focus [window_role="pop-up"]
 
-exec firefox
-exec spotify
-exec xchat
-exec skype
+exec --no-startup-id firefox
+exec --no-startup-id spotify
+exec --no-startup-id xchat
+exec --no-startup-id skype
 
 exec --no-startup-id i3-msg 'workspace $workspaceCode; exec termite -e "tmux"'
 exec --no-startup-id i3-msg 'workspace $workspaceTerminal; exec termite'
-exec compton -f
+exec --no-startup-id compton -f
 
 set $audioOutput @DEFAULT_SINK@
 
@@ -275,10 +273,10 @@ new_window 1pixel
 for_window [class="^.*"] border 1pixel
 for_window [window_role="FloatingWindow"] floating enable border normal
 bindsym $mod+Shift+b border toggle
-bindsym Print exec teiler --screenshot
+bindsym Print exec --no-startup-id teiler --screenshot
 
-exec xautolock -time 10 -locker "$Locker lock"
+exec --no-startup-id xautolock -time 10 -locker "$Locker lock"
 exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
 
-exec --no-startup /usr/bin/setxkbmap -option "caps:swapescape"
+exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
