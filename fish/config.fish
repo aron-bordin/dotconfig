@@ -66,6 +66,6 @@ end
 
 function gnome-keyring-daemon
   if test -n "$DESKTOP_SESSION"
-    set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
+    set -gx SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
   end
 end
