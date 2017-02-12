@@ -196,6 +196,19 @@ mode $mode_session {
 
 bindsym $mod+Shift+s mode $mode_session
 
+
+set $mode_display " - (d) Desktop"
+
+mode $mode_display {
+    
+    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal, mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"	
+}
+
+bindsym $mod+shift+p mode $mode_display
+
 set $bg-color 	         #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
@@ -239,8 +252,7 @@ exec --no-startup-id spotify
 exec --no-startup-id xchat
 exec --no-startup-id skypeforlinux
 
-# exec --no-startup-id i3-msg 'workspace $workspaceCode; exec termite -e "tmux"'
-exec --no-startup-id i3-msg 'workspace $workspaceTerminal; exec termite'
+exec i3-msg 'workspace $workspaceTerminal; exec termite'
 exec --no-startup-id compton -f
 
 set $audioOutput @DEFAULT_SINK@
