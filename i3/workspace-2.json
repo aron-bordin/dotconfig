@@ -22,7 +22,7 @@
                {
                 "class": "^Termite$",
                 "instance": "^termite$",
-               // "title": "^Coding\\:1\\:fish\\ \\-\\ \\\"fish\\ \\ \\/home\\/aron\\\"\\ $",
+                "title": "^tmux$",
                 "transient_for": "^$"
                }
             ],
