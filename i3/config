@@ -13,11 +13,10 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVuSansMonoForPowerline Nerd Font Book 14
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -126,7 +125,7 @@ bindsym $mod+Shift+0 move container to workspace $workspaceMusic
 
 assign [class="Firefox"] $workspaceHome
 assign [class="Xchat"] $workspaceChat
-assign [class="Skype"] $workspaceChat
+assign [class="skypeforlinux"] $workspaceChat
 assign [class="Unity"] $workspaceEditor
 assign [class="Gimp"] $workspaceEditor
 for_window [class="Spotify"] move to workspace $workspaceMusic
@@ -238,9 +237,9 @@ no_focus [window_role="pop-up"]
 exec --no-startup-id firefox
 exec --no-startup-id spotify
 exec --no-startup-id xchat
-exec --no-startup-id skype
+exec --no-startup-id skypeforlinux
 
-exec --no-startup-id i3-msg 'workspace $workspaceCode; exec termite -e "tmux"'
+# exec --no-startup-id i3-msg 'workspace $workspaceCode; exec termite -e "tmux"'
 exec --no-startup-id i3-msg 'workspace $workspaceTerminal; exec termite'
 exec --no-startup-id compton -f
 
@@ -270,7 +269,7 @@ focus_on_window_activation urgent
 
 hide_edge_borders both
 new_window 1pixel
-for_window [class="^.*"] border 1pixel
+for_window [class="^.*"] border pixel 0
 for_window [window_role="FloatingWindow"] floating enable border normal
 bindsym $mod+Shift+b border toggle
 bindsym Print exec --no-startup-id teiler --screenshot
@@ -280,3 +279,14 @@ exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
 
 exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
+
+gaps inner 10
+smart_gaps on
+
+bindsym $mod+n move workspace to output left
+bindsym $mod+m move workspace to output right
+
+exec_always --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
+exec_always --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -e "tmux new -s Coding -n Vim"' 
+exec_always --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
+exec_always --no-startup-id i3-msg "workspace 2|Code  ; exec termite"

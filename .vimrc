@@ -16,7 +16,10 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'majutsushi/tagbar'
+Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdtree'
@@ -30,6 +33,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'zhaocai/GoldenView.Vim'
 
 " ####### End-Plugins ####
 
@@ -235,3 +239,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 set formatoptions-=t
 set updatetime=250
 
+let g:goldenview__enable_default_mapping = 0
+nmap <silent> <C-S>  <Plug>GoldenViewSplit
+nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
+nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle

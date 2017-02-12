@@ -83,11 +83,12 @@ interval=10
 #instance=wlan0
 color=#00FF00
 interval=60
-#separator=false
+separator=false
 
-#[wifi]
+[wifi]
 #instance=wlp3s0
-#interval=10
+interval=10
+label=
 #separator=false
 
 #[bandwidth]
@@ -111,11 +112,11 @@ interval=10
 # Battery indicator
 #
 # The battery instance defaults to 0.
-#[battery]
+[battery]
 #label=BAT
-#label=⚡
+label=⚡
 #instance=1
-#interval=30
+interval=30
 
 # Date Time
 #
