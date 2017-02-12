@@ -63,3 +63,9 @@ function start_agent
     . $SSH_ENV > /dev/null
     ssh-add
 end
+
+function gnome-keyring-daemon
+  if test -n "$DESKTOP_SESSION"
+    set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
+  end
+end
