@@ -14,32 +14,42 @@ call vundle#begin()
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
-Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'euclio/gitignore.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
+Plugin 'posva/vim-vue'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'takac/vim-hardtime'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-scripts/gitignore'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'xolox/vim-lua-ftplugin'
+" Plugin 'xolox/vim-lua-inspect'
+Plugin 'xolox/vim-misc'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'zhaocai/GoldenView.Vim'
+Plugin 'wincent/command-t'
 
 " ####### End-Plugins ####
 
 call vundle#end()
 
 filetype plugin indent on
+set exrc
 
 " End Vundle @@
 
@@ -210,7 +220,7 @@ let g:syntastic_check_on_wq = 0
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " NERDTree settings
 " show NERDTree automatically if is a dir
@@ -243,3 +253,28 @@ let g:goldenview__enable_default_mapping = 0
 nmap <silent> <C-S>  <Plug>GoldenViewSplit
 nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
+
+nnoremap <F5> :UndotreeToggle<cr>
+nmap <F7> :TagbarToggle<CR>
+
+nnoremap tn :tabnew<Space>
+nnoremap tc :tabclose<CR>
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+
+nnoremap <leader>rv :source $MYVIMRC<CR>
+inoremap <C-o> <Esc>O<Esc>jA
+
+let g:ycm_goto_buffer_command = 'vertical-split'
+
+map <C-p> :CommandT<CR>
+
+if &term =~ "xterm" || &term =~ "screen"
+    let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+endif
+
+
+set pastetoggle=<F3>
+set secure " END OF CONFIG

@@ -1,2 +1,3 @@
 [options]
+scrollback_lines = 10000
 font = DejaVuSansMonoForPowerline Nerd Font 10

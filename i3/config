@@ -42,10 +42,10 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ccedilla focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -54,10 +54,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ccedilla move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -66,7 +66,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -249,10 +249,9 @@ no_focus [window_role="pop-up"]
 
 exec --no-startup-id firefox
 exec --no-startup-id spotify
-exec --no-startup-id xchat
+exec --no-startup-id hexchat
 exec --no-startup-id skypeforlinux
 
-exec i3-msg 'workspace $workspaceTerminal; exec termite'
 exec --no-startup-id compton -f
 
 set $audioOutput @DEFAULT_SINK@
@@ -286,7 +285,7 @@ for_window [window_role="FloatingWindow"] floating enable border normal
 bindsym $mod+Shift+b border toggle
 bindsym Print exec --no-startup-id teiler --screenshot
 
-exec --no-startup-id xautolock -time 10 -locker "$Locker lock"
+exec --no-startup-id xautolock -time 9 -bell 0 -locker "$Locker lock"
 exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
 
@@ -302,3 +301,5 @@ exec --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.co
 exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmux new -s Coding -n Vim"' 
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
+
+bindsym $mod+c exec i3-msg "append_layout /home/aron/.config/i3/workspace-2.json", exec --no-startup-id termite -t tmux -e "tmux new -s Coding -n Vim", exec termite, exec termite

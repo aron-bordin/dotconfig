@@ -6,7 +6,7 @@
 # List of valid properties:
 #
 # align
-# color
+#color
 # background
 # border
 # command
@@ -33,6 +33,7 @@ markup=non
 
 [mediaplayer]
 label=♪
+color=#8bc34a
 instance=spotify
 interval=5
 signal=10
@@ -50,6 +51,7 @@ instance=Master
 #instance=PCM
 interval=once
 signal=30
+color=#c5e1a5
 
 # Memory usage
 #
@@ -83,7 +85,7 @@ interval=10
 #instance=wlan0
 color=#00FF00
 interval=60
-separator=false
+separator=true
 
 [wifi]
 #instance=wlp3s0
@@ -123,5 +125,4 @@ interval=30
 [calendar]
 label=
 interval=30
-
-
+color=#00e676

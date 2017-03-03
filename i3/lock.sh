@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-scrot /tmp/screen.png
+scrot -z /tmp/screen.png
 convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
  
 if [[ -f $HOME/.config/i3/screen-lock.png ]]
