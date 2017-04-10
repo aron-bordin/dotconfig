@@ -17,7 +17,7 @@ set -gx EDITOR vim
 set -gx ANT_ROOT /usr/bin
 set -gx NDK_ROOT /opt/android-ndk
 set -gx ANDROID_SDK_ROOT /opt/android-sdk
-set -gx ARON_GEM_PATH ~/.gem/ruby/2.3.0/bin
+set -gx ARON_GEM_PATH ~/.gem/ruby/2.4.0/bin
 set -gx CARGO_PATH /home/aron/.cargo/bin
 set -gx RUST_SRC_PATH /usr/local/src/rustc-1.7.0/src
 set -gx ARON_PYTHON_PATH /home/aron/.local/bin
@@ -31,7 +31,7 @@ set -gx DYLD_LIBRARY_PATH /home/aron/Programming/GitHub/torch_distro/install/lib
 set -gx LUA_CPATH '/home/aron/Programming/GitHub/torch_distro/install/lib/?.so;' $LUA_CPATH
 
 
-# set -gx PATH $ARON_GEM_PATH $PATH
+set -gx PATH $ARON_GEM_PATH $PATH*/
 # set -gx PATH $CARGO_PATH $PATH
 set -gx PATH $ARON_PYTHON_PATH $PATH
 set -gx NODE_PATH /usr/lib/node_modules/

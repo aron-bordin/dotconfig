@@ -58,6 +58,7 @@ color=#c5e1a5
 # The type defaults to "mem" if the instance is not specified.
 [memory]
 label=
+min_width=15.6G/15.6G
 #separator=false
 interval=10
 
@@ -103,12 +104,14 @@ label=
 # see the script for details.
 [cpu_usage]
 label=
+min_width=100.00%
 interval=1
 #min_width=  100.00%
 #separator=false
 
 [load_average]
 label=
+interval=10
 interval=10
 
 # Battery indicator
@@ -119,6 +122,8 @@ interval=10
 label=⚡
 #instance=1
 interval=30
+min_width=⚡100%
+#instance=1
 
 # Date Time
 #

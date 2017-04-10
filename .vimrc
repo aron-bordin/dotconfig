@@ -17,6 +17,7 @@ Plugin 'chriskempson/base16-vim'
 " Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'euclio/gitignore.vim'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'heavenshell/vim-pydocstring'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
@@ -188,6 +189,7 @@ set shell=/bin/bash
 " Autocompletion
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoTo<CR>
+map <leader>e  :YcmCompleter GoToDefinition<CR>
 map <leader>d  :YcmCompleter GoToDeclaration<CR>
 
 "python with virtualenv support
@@ -275,6 +277,6 @@ if &term =~ "xterm" || &term =~ "screen"
     let g:CommandTCancelMap = ['<ESC>', '<C-c>']
 endif
 
-
+nmap <silent> <C-i> <Plug>(pydocstring)
 set pastetoggle=<F3>
 set secure " END OF CONFIG
