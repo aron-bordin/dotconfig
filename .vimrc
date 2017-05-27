@@ -14,7 +14,6 @@ call vundle#begin()
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
-" Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'euclio/gitignore.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'heavenshell/vim-pydocstring'
@@ -36,10 +35,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'vim-scripts/gitignore'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'xolox/vim-lua-ftplugin'
-" Plugin 'xolox/vim-lua-inspect'
 Plugin 'xolox/vim-misc'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'zhaocai/GoldenView.Vim'
@@ -278,5 +275,11 @@ if &term =~ "xterm" || &term =~ "screen"
 endif
 
 nmap <silent> <C-i> <Plug>(pydocstring)
+let g:hardtime_default_on = 1
 set pastetoggle=<F3>
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
+
+
 set secure " END OF CONFIG
