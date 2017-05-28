@@ -275,7 +275,6 @@ if &term =~ "xterm" || &term =~ "screen"
 endif
 
 nmap <silent> <C-i> <Plug>(pydocstring)
-let g:hardtime_default_on = 1
 set pastetoggle=<F3>
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 let g:ycm_python_binary_path = '/usr/bin/python3'

@@ -1,6 +1,6 @@
 #!/bin/sh
 
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_LOCK
+export SSH_AUTH_SOCK
 echo "OK"
-echo $SSH_AUTH_LOCK
+echo $SSH_AUTH_SOCK

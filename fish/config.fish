@@ -12,7 +12,7 @@ function update_pip
 end
 
 
-# alias vim="nvim"
+set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx EDITOR vim
 set -gx ANT_ROOT /usr/bin
 set -gx NDK_ROOT /opt/android-ndk
