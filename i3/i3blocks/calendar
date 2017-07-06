@@ -3,5 +3,5 @@
 date '+%d/%m/%Y %H:%M'
 
 case $BLOCK_BUTTON in
-	1) gnome-calendar ;;
+	1) gnome-calendar > /dev/null ;;
 esac 

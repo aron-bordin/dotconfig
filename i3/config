@@ -281,6 +281,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 
 bindsym $mod+d exec rofi -show run -font "Caterell Regular 16"
+bindsym $mod+Tab exec rofi -show window -font "Caterell Regular 16"
  
 focus_on_window_activation urgent
 
