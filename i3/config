@@ -134,6 +134,7 @@ assign [class="Gimp"] $workspaceEditor
 assign [class="TeXstudio"] $workspaceWriter
 assign [class="libreoffice"] $workspaceWriter
 assign [class="robomongo"] $workspaceTools
+assign [class="Slack"] $workspaceChat
 for_window [class="Spotify"] move to workspace $workspaceMusic
 
 
