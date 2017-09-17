@@ -20,6 +20,7 @@ set -gx CONDA_PATH /home/aron/Tools/miniconda3/bin
 
 
 set -gx PATH $ARON_GEM_PATH $PATH
+set -gx PATH $CUDA_BIN_PATH $PATH
 set -gx PATH $ARON_PYTHON_PATH $PATH
 set -gx NODE_PATH /usr/lib/node_modules/
 
