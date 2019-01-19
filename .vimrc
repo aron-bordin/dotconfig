@@ -7,6 +7,7 @@ filetype off
 
 " Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+"set rtp+=~/.fzf
 call vundle#begin()
 
 "let Vundle manage Vundle
@@ -14,20 +15,28 @@ call vundle#begin()
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'ensime/ensime-vim'
 Plugin 'euclio/gitignore.vim'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'hashivim/vim-terraform'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'juliosueiras/vim-terraform-completion'
+"Plugin 'junegunn/fzf'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
+Plugin 'rubik/vim-radon'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'takac/vim-hardtime'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-fugitive'
@@ -217,16 +226,16 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-
-set clipboard=unnamedplus
+let NERDTreeIgnore=['\.git$', '\.pyc$', '\~$', '\.egg*', '\.tox$', '__pycache__$', 'venv$', '^env$'] "ignore files in NERDTree
 
 " NERDTree settings
 " show NERDTree automatically if is a dir
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-map <C-n> :NERDTreeToggle<CR>
+nnoremap nf :NERDTreeFocus<CR>
+nnoremap nr :NERDTreeRefreshRoot<CR>
+nnoremap np :NERDTreeFind<CR>
 " file name hightlight
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -254,7 +263,7 @@ nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
 nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
 nnoremap <F5> :UndotreeToggle<cr>
-nmap <F7> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 nnoremap tn :tabnew<Space>
 nnoremap tc :tabclose<CR>
@@ -292,6 +301,25 @@ set pastetoggle=<F3>
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 let g:ycm_python_binary_path = '/usr/bin/python3'
 
+autocmd Filetype scala setlocal ts=4 sw=4 expandtab
+
+let g:CommandTWildIgnore=&wildignore . ",*/bower_components,*/data,*/venv,*/.git,*/dataset,*/.tox"
+
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+"let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeMinimalUI=1
+map <C-m> :NERDTreeToggle<CR>
+let g:gitgutter_max_signs=700
 
 
 set secure " END OF CONFIG

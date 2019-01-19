@@ -16,7 +16,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVuSansMonoForPowerline Nerd Font Book 14
+font pango:Hack Nerd Font Mono Regular 12
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -127,6 +127,7 @@ bindsym $mod+Shift+9 move container to workspace $workspaceChat
 bindsym $mod+Shift+0 move container to workspace $workspaceMusic
 
 assign [class="Firefox"] $workspaceHome
+assign [class="qutebrowser"] $workspaceHome
 assign [class="Xchat"] $workspaceChat
 assign [class="skypeforlinux"] $workspaceChat
 assign [class="Unity"] $workspaceEditor
@@ -136,6 +137,7 @@ assign [class="libreoffice"] $workspaceWriter
 assign [class="robomongo"] $workspaceTools
 assign [class="Slack"] $workspaceChat
 for_window [class="Spotify"] move to workspace $workspaceMusic
+assign [class="Skype"] $workspaceChat
 
 
 # reload the configuration file
@@ -236,7 +238,7 @@ client.urgent 		$urgent-bg-color   $urgent-bg-color   $text-color	    $indicator
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3blocks -c ~/.config/i3/configBlocks
+    status_command i3blocks -c ~/.config/i3/configBlocks
 	colors {
 		background $bg-color
 	    	separator #757575
@@ -248,15 +250,13 @@ bar {
 
 }
 
-#bindsym $mod+shift+x exec i3lock
 bindsym --release $mod+shift+k exec xkill
 exec_always --no-startup-id feh --bg-max /home/aron/Pictures/wallpaper.jpg
 
 no_focus [window_role="pop-up"]
 
-exec --no-startup-id firefox
+exec --no-startup-id qutebrowser
 exec --no-startup-id spotify
-exec --no-startup-id hexchat
 exec --no-startup-id skypeforlinux
 
 exec --no-startup-id compton -f
@@ -281,8 +281,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 
-bindsym $mod+d exec rofi -show run -font "Caterell Regular 16"
-bindsym $mod+Tab exec rofi -show window -font "Caterell Regular 16"
+bindsym $mod+d exec rofi -show run -font "Caterell Regular 13"
+bindsym $mod+Tab exec rofi -show window -font "Caterell Regular 13"
  
 focus_on_window_activation urgent
 
@@ -290,6 +290,7 @@ hide_edge_borders both
 new_window 1pixel
 for_window [class="^.*"] border pixel 0
 for_window [window_role="FloatingWindow"] floating enable border normal
+for_window [class="Yad"] floating enable
 bindsym $mod+Shift+b border toggle
 bindsym Print exec --no-startup-id teiler --screenshot
 
@@ -302,12 +303,11 @@ exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
 gaps inner 10
 smart_gaps on
 
-bindsym $mod+n move workspace to output left
-bindsym $mod+m move workspace to output right
+bindsym $mod+n move workspace to output HDMI-1-1
+bindsym $mod+m move workspace to output eDP-1-1
 
 exec --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
 exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmux new -s Coding -n Vim"' 
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
-
-bindsym $mod+c exec i3-msg "append_layout /home/aron/.config/i3/workspace-2.json", exec --no-startup-id termite -t tmux -e "tmux new -s Coding -n Vim", exec termite, exec termite
+exec --no-startup-id dunst -config /home/aron/.config/dunstrc

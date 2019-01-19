@@ -2,6 +2,11 @@ function su
         /bin/su --shell=/usr/bin/bash $argv
 end
 
+
+function ccat
+    pygmentize -g $argv
+end
+
 function update_pip
     pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip install -U
     pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip2 install -U
@@ -10,10 +15,13 @@ end
 
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx EDITOR vim
-set -gx ARON_GEM_PATH ~/.gem/ruby/2.4.0/bin
+set -gx ARON_GEM_PATH ~/.gem/ruby/2.5.0/bin
 set -gx ARON_PYTHON_PATH /home/aron/.local/bin
 set -gx SPARK_HOME /home/aron/Tools/spark
 set -gx PYSPARK_SUBMIT_ARGS '--master local[8]'
+set -gx JAVA_OPTS -Xmx2g
+set -gx JAVA_HOME /usr/lib/jvm/java-8-openjdk/
+set -gx MONGO_HOST mongodb://127.0.0.1:27017
  
 set -gx CUDA_BIN_PATH /opt/cuda/bin
 set -gx CONDA_PATH /home/aron/Tools/miniconda3/bin
@@ -22,7 +30,11 @@ set -gx CONDA_PATH /home/aron/Tools/miniconda3/bin
 set -gx PATH $ARON_GEM_PATH $PATH
 set -gx PATH $CUDA_BIN_PATH $PATH
 set -gx PATH $ARON_PYTHON_PATH $PATH
+set -gx PATH $ANDROID_HOME/tools $PATH
+set -gx PATH $ANDROID_HOME/tools/bin $PATH
+set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx NODE_PATH /usr/lib/node_modules/
+set -gx XDG_CURRENT_DESKTOP GNOME
 
 setenv SSH_ENV $HOME/.ssh/environment
 
@@ -53,6 +65,16 @@ end
 function activate_pyspark
     set -gx PATH $SPARK_HOME/bin $PATH
 end
+
+function activate_conda
+    set -gx PATH $CONDA_PATH $PATH
+end
+
+function activate_resty
+    set -gx PATH /opt/openresty/bin/ $PATH
+    set -gx PATH /opt/openresty/nginx/sbin/ $PATH
+end
+
 
 abbr setclip "xclip -selection c"
 abbr getclip "xclip -selection c -o"
