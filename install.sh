@@ -19,6 +19,7 @@ ln -s /home/aron/Programming/GitHub/dotconfig/termite/ /home/aron/.config/termit
 ln -s /home/aron/Programming/GitHub/dotconfig/tmux/ /home/aron/.config/tmux
 ln -s /home/aron/Programming/GitHub/dotconfig/.tmux.conf /home/aron/
 ln -s /home/aron/Programming/GitHub/dotconfig/.vimrc /home/aron/
+ln -s /home/aron/Programming/GitHub/dotconfig/qutebrowser/ /home/aron/.config/qutebrowser
 
 echo "Done with symlinks"
 
