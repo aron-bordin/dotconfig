@@ -15,22 +15,23 @@ call vundle#begin()
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'ensime/ensime-vim'
+Plugin 'davidhalter/jedi-vim'
+"Plugin 'derekwyatt/vim-scala'
+"Plugin 'ensime/ensime-vim'
 Plugin 'euclio/gitignore.vim'
+Plugin 'ervandew/supertab'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'heavenshell/vim-pydocstring'
-Plugin 'leafgarland/typescript-vim'
+"Plugin 'leafgarland/typescript-vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'juliosueiras/vim-terraform-completion'
-"Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf'
+Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
-Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
-Plugin 'rubik/vim-radon'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
@@ -41,7 +42,7 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
@@ -49,7 +50,7 @@ Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'xolox/vim-misc'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'zhaocai/GoldenView.Vim'
-Plugin 'wincent/command-t'
+"Plugin 'wincent/command-t'
 
 " ####### End-Plugins ####
 
@@ -172,10 +173,6 @@ nnoremap <C-H> <C-W><C-H>
 " folding
 nnoremap <space> za
 
-" SimpylFold issue #27
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
 " Code indent settings
 set tabstop=4
 set softtabstop=4
@@ -199,11 +196,14 @@ map <leader>e  :YcmCompleter GoToDefinition<CR>
 map <leader>d  :YcmCompleter GoToDeclaration<CR>
 
 "python with virtualenv support
-py << EOF
+
+python << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
+  project_base_dir in sys.path or sys.path.insert(0, project_base_dir)
+
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
 EOF
@@ -211,8 +211,9 @@ EOF
 " set foldmethod=indent
 set foldlevel=99
 
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+" SimpylFold issue #27
+"autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+"autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let python_highlight_all=1
 
 " syntastic settings
@@ -320,6 +321,26 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeMinimalUI=1
 map <C-m> :NERDTreeToggle<CR>
 let g:gitgutter_max_signs=700
+let g:SimpylFold_docstring_preview = 1
+
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:ruby_fold = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+let g:php_folding = 1
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:jedi#use_splits_not_buffers = "right"
 
 
 set secure " END OF CONFIG
