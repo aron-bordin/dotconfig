@@ -7,7 +7,7 @@ filetype off
 
 " Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-"set rtp+=~/.fzf
+set rtp+=/usr/bin/fzf
 call vundle#begin()
 
 "let Vundle manage Vundle
@@ -27,6 +27,7 @@ Plugin 'heavenshell/vim-pydocstring'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'juliosueiras/vim-terraform-completion'
 Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
@@ -307,6 +308,7 @@ autocmd Filetype scala setlocal ts=4 sw=4 expandtab
 let g:CommandTWildIgnore=&wildignore . ",*/bower_components,*/data,*/venv,*/.git,*/dataset,*/.tox"
 
 let g:airline#extensions#ale#enabled = 1
+let g:ale_completion_enabled = 1
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -341,6 +343,20 @@ let g:rust_fold = 1
 let g:php_folding = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:jedi#use_splits_not_buffers = "right"
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+let g:fzf_command_prefix = 'Fzf'
+
+nnoremap ,f :FZF<CR>
+nnoremap ,F :FzfGFiles<CR>
+nnoremap ,b :FzfBuffers<CR>
+nnoremap ,s :FzfAg<CR>
+nnoremap ,S :FzfRg<CR>
+let g:fzf_layout = { 'window': '40split enew' }
+let g:fzf_buffers_jump = 1
 
 
 set secure " END OF CONFIG

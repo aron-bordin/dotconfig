@@ -38,6 +38,12 @@ instance=spotify
 interval=5
 signal=10
 
+[mediaplayer]
+label=♪
+color=#8bc34a
+instance=google-play-music-desktop-player
+interval=5
+signal=10
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)

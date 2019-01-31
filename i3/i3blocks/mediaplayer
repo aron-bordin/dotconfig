@@ -29,6 +29,8 @@ if [[ "${PLAYER_STATUS}" = "Paused" ]]; then
   CUR_ICON="${ICON_PAUSE}"
 elif [[ "${PLAYER_STATUS}" = "Playing" ]]; then
   CUR_ICON="${ICON_PLAY}"
+elif [[ "${PLAYER_STATUS}" = "Not available" ]]; then
+    exit 0
 else
   CUR_ICON="${ICON_STOP}"
 fi

@@ -22,8 +22,8 @@ settings:
         ',t': open --tab https://translate.google.com/#auto/nl/{primary}
         ',c': code
         ',j': json
-        ',v': video
-        ',v': hint links fill :video {hint-url}
+        ',V': video
+        ',v': hint links run video {hint-url}
         ',yd': spawn --userscript youtube-dl
         J: tab-prev
         K: tab-next
