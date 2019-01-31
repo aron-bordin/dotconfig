@@ -12,7 +12,7 @@ def setTheme(name):
 
 name = None
 if os.path.isfile('/home/aron/.config/fish/.theme'):
-    name = open('/home/aron/.config/fish/.theme', 'r').read()
+    name = open('/home/aron/.config/fish/.theme', 'r').read().strip()
     if not name:
         name = None
 if not name:

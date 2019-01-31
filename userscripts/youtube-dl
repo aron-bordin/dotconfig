@@ -1,0 +1,24 @@
+#!/bin/sh
+
+url=${1:-$QUTE_URL}
+
+qualities=$(youtube-dl --list-formats "$url")
+
+if [ $? != 0 ]; then
+	printf 'message-error "Unsupported URL: %s"' "$url" >>"$QUTE_FIFO"
+	exit
+fi
+
+quality=$({
+	printf 'best\nbestvideo\nbestaudio\n'
+	printf '%s\n' "$qualities" | grep '^[[:digit:]]' | tac
+} | rofi -monitor -2 -location 6 -width 100 -i -no-custom -l 10 -p 'Download Quality ' -dmenu)
+
+if [ $? != 0 ]; then
+	exit
+fi
+
+quality=$(printf '%s' "$quality" | awk '{ print $1 }')
+
+output=$(youtube-dl --get-url --format "$quality" "$url")
+echo "download $output" >> "$QUTE_FIFO"

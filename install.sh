@@ -20,6 +20,7 @@ ln -s /home/aron/Programming/GitHub/dotconfig/tmux/ /home/aron/.config/tmux
 ln -s /home/aron/Programming/GitHub/dotconfig/.tmux.conf /home/aron/
 ln -s /home/aron/Programming/GitHub/dotconfig/.vimrc /home/aron/
 ln -s /home/aron/Programming/GitHub/dotconfig/qutebrowser/ /home/aron/.config/qutebrowser
+ln -s /home/aron/Programming/GitHub/dotconfig/ranger/ /home/aron/.config/ranger
 
 echo "Done with symlinks"
 

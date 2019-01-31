@@ -20,7 +20,10 @@ settings:
         ',p': spawn --userscript passwd
         ',s': set-cmd-text :buffer 0
         ',t': open --tab https://translate.google.com/#auto/nl/{primary}
+        ',c': code
+        ',j': json
         ',v': video
+        ',v': hint links fill :video {hint-url}
         ',yd': spawn --userscript youtube-dl
         J: tab-prev
         K: tab-next
@@ -80,9 +83,9 @@ settings:
   fonts.messages.warning:
     global: 10pt "Hack Nerd Font Mono"
   fonts.monospace:
-    global: '"Hack Nerd Font Mono", "xos4 Terminus", Terminus, Monospace, "DejaVu
-      Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New",
-      Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+    global: '"Hack Nerd Font Mono", Monospace, "DejaVu Sans Mono", Monaco, "Bitstream
+      Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace,
+      Fixed, Consolas, Terminal'
   fonts.prompts:
     global: 10pt "Hack Nerd Font Mono"
   fonts.statusbar:
@@ -164,6 +167,8 @@ settings:
     global: 25%
   url.default_page:
     global: https://google.com
+  url.open_base_url:
+    global: false
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}

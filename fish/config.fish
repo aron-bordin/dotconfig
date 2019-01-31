@@ -1,5 +1,24 @@
 function su
-        /bin/su --shell=/usr/bin/bash $argv
+    /bin/su --shell=/usr/bin/fish $argv
+end
+
+function fish_user_key_bindings
+  fzf_key_bindings
+end
+
+function ranger
+    if set -q RANGER_LEVEL
+        exit
+    else
+        /usr/bin/ranger $argv
+    end
+end
+
+function ranger-cd
+    set -x tempfile (mktemp -t tmp.XXXXXX)
+    ranger --choosedir="$tempfile" "$HOME"
+    cd (cat "$tempfile")
+    rm -f "$tempfile"
 end
 
 
@@ -15,7 +34,7 @@ end
 
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx EDITOR vim
-set -gx ARON_GEM_PATH ~/.gem/ruby/2.5.0/bin
+set -gx ARON_GEM_PATH ~/.gem/ruby/2.6.0/bin
 set -gx ARON_PYTHON_PATH /home/aron/.local/bin
 set -gx SPARK_HOME /home/aron/Tools/spark
 set -gx PYSPARK_SUBMIT_ARGS '--master local[8]'
@@ -78,3 +97,8 @@ end
 
 abbr setclip "xclip -selection c"
 abbr getclip "xclip -selection c -o"
+
+if set -q RANGERCD
+    cd $RANGERCD
+    set -e RANGERCD
+end

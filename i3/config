@@ -29,8 +29,8 @@ font pango:Hack Nerd Font Mono Regular 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
-bindsym $mod+Shift+Return exec xfce4-terminal --role=FloatingWindow
+bindsym $mod+Return exec ranger-termite
+bindsym $mod+Shift+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -210,7 +210,7 @@ set $mode_display " - (d) Desktop"
 
 mode $mode_display {
     
-    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal, mode "default"
+    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 912x1080 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"	
@@ -303,8 +303,8 @@ exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
 gaps inner 10
 smart_gaps on
 
-bindsym $mod+n move workspace to output HDMI-1-1
-bindsym $mod+m move workspace to output eDP-1-1
+bindsym $mod+n move workspace to output left
+bindsym $mod+m move workspace to output right
 
 exec --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
 exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmux new -s Coding -n Vim"' 

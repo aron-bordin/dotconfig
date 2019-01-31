@@ -1,0 +1,7 @@
+#!/bin/sh
+
+artist=$(playerctl -p spotify metadata artist)
+music=$(playerctl -p spotify metadata title)
+
+# send the command to qutebrowser to open the new file containing the formatted json
+echo "open -t https://duckduckgo.com/?q=\site:genius.com inurl:lyrics $artist – $music" >> "$QUTE_FIFO"
