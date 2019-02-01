@@ -58,7 +58,7 @@ set -gx PATH $ANDROID_HOME/tools/bin $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx NODE_PATH /usr/lib/node_modules/
 set -gx XDG_CURRENT_DESKTOP GNOME
-set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --preview '~/.config/ranger/scope.sh {} 0 0 /tmp/ False' --height 50% --border"
+set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git'
 set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
@@ -109,4 +109,8 @@ abbr getclip "xclip -selection c -o"
 if set -q RANGERCD
     cd $RANGERCD
     set -e RANGERCD
+end
+
+if set -q VIMRUNTIME
+    set -gx FZF_DEFAULT_OPTS "--preview '~/.config/ranger/scope.sh {} 0 0 /tmp/ False'" $FZF_DEFAULT_OPTS
 end

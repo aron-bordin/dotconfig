@@ -357,6 +357,19 @@ nnoremap ,s :FzfAg<CR>
 nnoremap ,S :FzfRg<CR>
 let g:fzf_layout = { 'window': '40split enew' }
 let g:fzf_buffers_jump = 1
+let g:hardtime_default_on = 1
+let g:hardtime_maxcount = 2
 
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<C-N>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<C-N>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
 
 set secure " END OF CONFIG
