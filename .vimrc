@@ -235,9 +235,6 @@ let NERDTreeIgnore=['\.git$', '\.pyc$', '\~$', '\.egg*', '\.tox$', '__pycache__$
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-nnoremap nf :NERDTreeFocus<CR>
-nnoremap nr :NERDTreeRefreshRoot<CR>
-nnoremap np :NERDTreeFind<CR>
 " file name hightlight
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
