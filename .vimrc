@@ -19,6 +19,7 @@ Plugin 'davidhalter/jedi-vim'
 "Plugin 'derekwyatt/vim-scala'
 "Plugin 'ensime/ensime-vim'
 Plugin 'euclio/gitignore.vim'
+Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'hashivim/vim-terraform'
@@ -28,6 +29,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'juliosueiras/vim-terraform-completion'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
@@ -190,12 +192,6 @@ set number
 " Use bash
 set shell=/bin/bash
 
-" Autocompletion
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoTo<CR>
-map <leader>e  :YcmCompleter GoToDefinition<CR>
-map <leader>d  :YcmCompleter GoToDeclaration<CR>
-
 "python with virtualenv support
 
 python << EOF
@@ -284,10 +280,7 @@ nnoremap tl :tablast<CR>
 :nmap <S-ScrollWheelRight> <nop>
 :nmap <C-ScrollWheelRight> <nop>
 
-nnoremap <leader>rv :source $MYVIMRC<CR>
 inoremap <C-o> <Esc>O<Esc>jA
-
-let g:ycm_goto_buffer_command = 'vertical-split'
 
 map <C-p> :CommandT<CR>
 
@@ -297,8 +290,6 @@ endif
 
 nmap <silent> <C-i> <Plug>(pydocstring)
 set pastetoggle=<F3>
-let g:ycm_server_python_interpreter = '/usr/bin/python3'
-let g:ycm_python_binary_path = '/usr/bin/python3'
 
 autocmd Filetype scala setlocal ts=4 sw=4 expandtab
 
@@ -352,6 +343,8 @@ nnoremap ,F :FzfGFiles<CR>
 nnoremap ,b :FzfBuffers<CR>
 nnoremap ,s :FzfAg<CR>
 nnoremap ,S :FzfRg<CR>
+nmap <leader>f <Plug>(ale_fix)
+
 let g:fzf_layout = { 'window': '40split enew' }
 let g:fzf_buffers_jump = 1
 let g:hardtime_default_on = 1
@@ -368,5 +361,14 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'python': ['autopep8'],
+\}
+
+nnoremap ! '
+nnoremap ' `
+
 
 set secure " END OF CONFIG
