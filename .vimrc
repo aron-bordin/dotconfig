@@ -18,14 +18,16 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'derekwyatt/vim-scala'
 "Plugin 'ensime/ensime-vim'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'euclio/gitignore.vim'
 Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
+Plugin 'francoiscabrol/ranger.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'heavenshell/vim-pydocstring'
 "Plugin 'leafgarland/typescript-vim'
-Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'juliosueiras/vim-terraform-completion'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
@@ -36,22 +38,24 @@ Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
 Plugin 'takac/vim-hardtime'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'thaerkh/vim-workspace'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'xolox/vim-misc'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'zhaocai/GoldenView.Vim'
 "Plugin 'wincent/command-t'
 
@@ -224,19 +228,19 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let NERDTreeIgnore=['\.git$', '\.pyc$', '\~$', '\.egg*', '\.tox$', '__pycache__$', 'venv$', '^env$'] "ignore files in NERDTree
+"let NERDTreeIgnore=['\.git$', '\.pyc$', '\~$', '\.egg*', '\.tox$', '__pycache__$', 'venv$', '^env$'] "ignore files in NERDTree
 
 " NERDTree settings
 " show NERDTree automatically if is a dir
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " file name hightlight
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+"let g:NERDTreeFileExtensionHighlightFullName = 1
+"let g:NERDTreeExactMatchHighlightFullName = 1
+"let g:NERDTreePatternMatchHighlightFullName = 1
+"let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+"let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='luna'
@@ -244,7 +248,7 @@ let g:airline_theme='luna'
 set incsearch
 set hlsearch
 nnoremap <Leader><space> :noh<cr>
-let NERDTreeMapActivateNode='<space>'
+"let NERDTreeMapActivateNode='<space>'
 
 let &colorcolumn="80,".join(range(121,999),",")
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -253,9 +257,14 @@ set formatoptions-=t
 set updatetime=250
 
 let g:goldenview__enable_default_mapping = 0
-nmap <silent> <C-S>  <Plug>GoldenViewSplit
-nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
-nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
+
+" 1. split to tiled windows
+nmap <silent> <Leader>s  <Plug>GoldenViewSplit
+
+" 2. quickly switch current window with the main pane
+" and toggle back
+nmap <silent> <Leader>j   <Plug>GoldenViewSwitchMain
+nmap <silent> <Leader>k <Plug>GoldenViewSwitchToggle
 
 nnoremap <F5> :UndotreeToggle<cr>
 nmap <F8> :TagbarToggle<CR>
@@ -306,10 +315,10 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeMinimalUI=1
-map <C-m> :NERDTreeToggle<CR>
+"let NERDTreeShowHidden=1
+"let NERDTreeShowLineNumbers=1
+"let NERDTreeMinimalUI=1
+"map <C-m> :NERDTreeToggle<CR>
 let g:gitgutter_max_signs=700
 let g:SimpylFold_docstring_preview = 1
 
@@ -343,9 +352,11 @@ nnoremap ,F :FzfGFiles<CR>
 nnoremap ,b :FzfBuffers<CR>
 nnoremap ,s :FzfAg<CR>
 nnoremap ,S :FzfRg<CR>
+"nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+
 nmap <leader>f <Plug>(ale_fix)
 
-let g:fzf_layout = { 'window': '40split enew' }
+let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
 let g:hardtime_default_on = 1
 let g:hardtime_maxcount = 2
@@ -354,9 +365,9 @@ let g:multi_cursor_use_default_mapping=0
 
 " Default mapping
 let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<C-N>'
+let g:multi_cursor_select_all_word_key = 'a<C-N>'
 let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<C-N>'
+let g:multi_cursor_select_all_key      = 'ag<C-n>'
 let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
@@ -369,6 +380,48 @@ let g:ale_fixers = {
 
 nnoremap ! '
 nnoremap ' `
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+let g:EasyMotion_smartcase = 1
+"let NERDTreeQuitOnOpen = 1
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"let NERDTreeAutoDeleteBuffer = 1
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
+
+function StartGolden()
+    call GoldenView#Split()
+    call GoldenView#zl#window#next_window_or_tab()
+    call GoldenView#Split()
+    call GoldenView#zl#window#next_window_or_tab()
+    call GoldenView#Split()
+    call GoldenView#zl#window#next_window_or_tab()
+    call GoldenView#zl#window#previous_window_or_tab()
+    call GoldenView#zl#window#previous_window_or_tab()
+    call GoldenView#zl#window#previous_window_or_tab()
+    return "abc"
+endfunction
+command StartGolden call StartGolden()
+map ,g : StartGolden<CR>
+
+
+nnoremap <F2> :call ToogleFold()<CR>
+
+function! ToogleFold()
+     if &foldlevel >= 20
+         set foldlevel=1
+     else
+         set foldlevel=99
+     endif
+ endfunction
+
+let g:ranger_map_keys = 0
+map <leader>m :Ranger<CR>
+map <leader>M :RangerWorkingDirectory<CR>
+
+nnoremap <leader>w :ToggleWorkspace<CR>
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_session_disable_on_args = 1
 
 
 set secure " END OF CONFIG
