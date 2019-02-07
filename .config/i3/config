@@ -29,8 +29,8 @@ font pango:Hack Nerd Font Mono Regular 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ranger-termite
-bindsym $mod+Shift+Return exec termite
+bindsym $mod+Return exec termite
+bindsym $mod+Shift+Return exec ranger-termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -136,7 +136,9 @@ assign [class="TeXstudio"] $workspaceWriter
 assign [class="libreoffice"] $workspaceWriter
 assign [class="robomongo"] $workspaceTools
 assign [class="Slack"] $workspaceChat
+assign [class="google play music desktop player"] $workspaceMusic
 for_window [class="Spotify"] move to workspace $workspaceMusic
+for_window [class="google play music desktop player"] move to workspace $workspaceMusic
 assign [class="Skype"] $workspaceChat
 
 
@@ -210,7 +212,7 @@ set $mode_display " - (d) Desktop"
 
 mode $mode_display {
     
-    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 912x1080 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
+    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"	
@@ -238,6 +240,8 @@ client.urgent 		$urgent-bg-color   $urgent-bg-color   $text-color	    $indicator
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    tray_output primary
+    tray_padding 5
     status_command i3blocks -c ~/.config/i3/configBlocks
 	colors {
 		background $bg-color
@@ -287,11 +291,10 @@ bindsym $mod+Tab exec rofi -show window -font "Caterell Regular 13"
 focus_on_window_activation urgent
 
 hide_edge_borders both
-new_window 1pixel
-for_window [class="^.*"] border pixel 0
-for_window [window_role="FloatingWindow"] floating enable border normal
-for_window [class="Yad"] floating enable
-bindsym $mod+Shift+b border toggle
+default_border pixel 1
+#new_window 1pixel
+#for_window [class="^.*"] border pixel 0
+#bindsym $mod+Shift+b border toggle
 bindsym Print exec --no-startup-id teiler --screenshot
 
 exec --no-startup-id xautolock -time 9 -bell 0 -locker "$Locker lock"
@@ -311,3 +314,4 @@ exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmu
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id dunst -config /home/aron/.config/dunstrc
+exec --no-startup-id variety

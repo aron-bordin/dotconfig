@@ -38,7 +38,7 @@ Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
 Plugin 'ryanoasis/vim-devicons'
-"Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
 Plugin 'takac/vim-hardtime'
@@ -423,5 +423,9 @@ nnoremap <leader>w :ToggleWorkspace<CR>
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
 
+nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+
+
+set cursorline
 
 set secure " END OF CONFIG

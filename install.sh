@@ -11,23 +11,42 @@ rm -rf ~/.config/teiler
 rm -rf ~/.config/tmux
 rm -f ~/.tmux.conf
 
-ln -s /home/aron/Programming/GitHub/dotconfig/fish/ /home/aron/.config/fish
-ln -s /home/aron/Programming/GitHub/dotconfig/i3/ /home/aron/.config/i3
-ln -s /home/aron/Programming/GitHub/dotconfig/rofi/ /home/aron/.config/rofi
-ln -s /home/aron/Programming/GitHub/dotconfig/teiler/ /home/aron/.config/teiler
-ln -s /home/aron/Programming/GitHub/dotconfig/termite/ /home/aron/.config/termite
-ln -s /home/aron/Programming/GitHub/dotconfig/tmux/ /home/aron/.config/tmux
-ln -s /home/aron/Programming/GitHub/dotconfig/.tmux.conf /home/aron/
-ln -s /home/aron/Programming/GitHub/dotconfig/.vimrc /home/aron/
-ln -s /home/aron/Programming/GitHub/dotconfig/qutebrowser/ /home/aron/.config/qutebrowser
-ln -s /home/aron/Programming/GitHub/dotconfig/ranger/ /home/aron/.config/ranger
+mkdir -p ~/.config
+mkdir -p ~/.local/share/qutebrowser
+
+# .config
+ln -s $HOME/Programming/GitHub/dotconfig/.config/fish/ $HOME/.config/fish
+ln -s $HOME/Programming/GitHub/dotconfig/.config/htop/ $HOME/.config/htop
+ln -s $HOME/Programming/GitHub/dotconfig/.config/i3/ $HOME/.config/i3
+ln -s $HOME/Programming/GitHub/dotconfig/.config/rofi/ $HOME/.config/rofi
+ln -s $HOME/Programming/GitHub/dotconfig/.config/teiler/ $HOME/.config/teiler
+ln -s $HOME/Programming/GitHub/dotconfig/.config/termite/ $HOME/.config/termite
+ln -s $HOME/Programming/GitHub/dotconfig/.config/tmux/ $HOME/.config/tmux
+ln -s $HOME/Programming/GitHub/dotconfig/.config/qutebrowser/ $HOME/.config/qutebrowser
+ln -s $HOME/Programming/GitHub/dotconfig/.config/ranger/ $HOME/.config/ranger
+ln -s $HOME/Programming/GitHub/dotconfig/.config/compton.conf $HOME/.config/
+ln -s $HOME/Programming/GitHub/dotconfig/.config/dunstrc $HOME/.config/
+ln -s $HOME/Programming/GitHub/dotconfig/.config/flake8 $HOME/.config/
+
+# local/share
+
+ln -s $HOME/Programming/GitHub/dotconfig/.local/share/qutebrowser/qtwebengine_dictionaries/ $HOME/.local/share/qutebrowser/
+ln -s $HOME/Programming/GitHub/dotconfig/.local/share/qutebrowser/userscripts/ $HOME/.local/share/qutebrowser/
+
+# $HOME
+ln -s $HOME/Programming/GitHub/dotconfig/.tmux.conf $HOME/
+ln -s $HOME/Programming/GitHub/dotconfig/.vimrc $HOME/
+ln -s $HOME/Programming/GitHub/dotconfig/.bashrc $HOME/
+ln -s $HOME/Programming/GitHub/dotconfig/.gitconfig $HOME/
+ln -s $HOME/Programming/GitHub/dotconfig/.xinitrc $HOME/
+ln -s $HOME/Programming/GitHub/dotconfig/.Xresources $HOME/
 
 echo "Done with symlinks"
 
 echo "Installing deps"
 
-rm -rf /home/aron/.config/base16-shell
+rm -rf $HOME/.config/base16-shell
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
-rm -rf /home/aron/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git /home/aron/.vim/bundle/Vundle.vim
+rm -rf $HOME/.vim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
