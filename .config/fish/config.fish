@@ -61,7 +61,6 @@ set -gx XDG_CURRENT_DESKTOP GNOME
 set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git'
 set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
-set -gx TERM xterm-color
 
 
 setenv SSH_ENV $HOME/.ssh/environment
@@ -101,6 +100,10 @@ end
 function activate_resty
     set -gx PATH /opt/openresty/bin/ $PATH
     set -gx PATH /opt/openresty/nginx/sbin/ $PATH
+end
+
+function activate_term
+    set -x TERM xterm-color
 end
 
 
