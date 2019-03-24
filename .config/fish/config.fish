@@ -76,6 +76,11 @@ function selectTheme
     loadTheme
 end
 
+function writeTheme
+    set -x BASE16_THEME nord
+    eval sh ~/.config/base16-shell/scripts/base16-$BASE16_THEME.sh
+end
+
 loadTheme
 
 function use_gcc5
