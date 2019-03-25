@@ -89,12 +89,12 @@ handle_extension() {
 handle_image() {
     local mimetype="${1}"
     case "${mimetype}" in
-        # SVG
-        # image/svg+xml)
-        #     convert "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
-        #     exit 1;;
+         #SVG
+         image/svg)
+             echo "SVG Disabled" && exit 6
+             exit 1;;
 
-        # Image
+         #Image
         image/*)
             local orientation
             orientation="$( identify -format '%[EXIF:Orientation]\n' -- "${FILE_PATH}" )"

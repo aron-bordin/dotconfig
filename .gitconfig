@@ -1,3 +1,8 @@
 [user]
 	email = aron.bordin@gmail.com
 	name = Aron Bordin
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false

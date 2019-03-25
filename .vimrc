@@ -15,6 +15,7 @@ call vundle#begin()
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
+Plugin 'chrisbra/Recover.vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'derekwyatt/vim-scala'
 "Plugin 'ensime/ensime-vim'
@@ -52,7 +53,6 @@ Plugin 'tpope/vim-repeat'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-scripts/indentpython.vim'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'xolox/vim-misc'
 "Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -90,11 +90,6 @@ set display=truncate
 
 " Show a few lines of context around the cursor
 set scrolloff=5
-
-" Do incremental searching when it's possitble to timeout
-if has('reltime')
-	set incsearch
-endif
 
 " Do not recognize octal number for Ctrl-A and Ctrl-X
 set nrformats-=octal
@@ -151,15 +146,6 @@ if has("autocmd")
   augroup END
 
 endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-" Revert with: ":delcommand DiffOrig".
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
 
 if has('langmap') && exists('+langremap')
   " Prevent that the langmap option applies to characters that result from a
@@ -227,21 +213,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-"let NERDTreeIgnore=['\.git$', '\.pyc$', '\~$', '\.egg*', '\.tox$', '__pycache__$', 'venv$', '^env$'] "ignore files in NERDTree
-
-" NERDTree settings
-" show NERDTree automatically if is a dir
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-" file name hightlight
-"let g:NERDTreeFileExtensionHighlightFullName = 1
-"let g:NERDTreeExactMatchHighlightFullName = 1
-"let g:NERDTreePatternMatchHighlightFullName = 1
-"let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-"let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-
 let g:airline_powerline_fonts = 1
 let g:airline_theme='luna'
 
@@ -394,9 +365,6 @@ function StartGolden()
     call GoldenView#zl#window#next_window_or_tab()
     call GoldenView#Split()
     call GoldenView#zl#window#next_window_or_tab()
-    call GoldenView#Split()
-    call GoldenView#zl#window#next_window_or_tab()
-    call GoldenView#zl#window#previous_window_or_tab()
     call GoldenView#zl#window#previous_window_or_tab()
     call GoldenView#zl#window#previous_window_or_tab()
     return "abc"
@@ -427,5 +395,15 @@ nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 
 set cursorline
+let g:workspace_autosave = 0
+set lazyredraw
+set showmatch
+set smartcase
+set encoding=utf-8
+set visualbell
+set title
+set columns=120
+set textwidth=120
+
 
 set secure " END OF CONFIG
