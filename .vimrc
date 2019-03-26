@@ -443,6 +443,7 @@ augroup textobj_quote
 augroup END
 
 autocmd Filetype markdown call UniCycleOn()
+autocmd Filetype text call UniCycleOn()
 
 let g:goyo_width = 80
 
