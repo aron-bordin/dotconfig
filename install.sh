@@ -50,3 +50,9 @@ git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shel
 
 rm -rf $HOME/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+
+./install_packages.sh
+
+git config --global merge.tool vimdiff
+git config --global merge.conflictstyle diff3
+git config --global mergetool.prompt false
