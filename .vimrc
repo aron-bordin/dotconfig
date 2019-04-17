@@ -32,17 +32,12 @@ Plugin 'heavenshell/vim-pydocstring'
 Plugin 'juliosueiras/vim-terraform-completion'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'kana/vim-textobj-user'
 Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
-Plugin 'reedes/vim-textobj-quote'
-Plugin 'rhysd/vim-grammarous'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'scrooloose/nerdtree'
@@ -400,27 +395,6 @@ let g:workspace_session_disable_on_args = 1
 
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
-let g:grammarous#languagetool_cmd = 'languagetool'
-let g:grammarous#default_lang = 'pt-BR'
-let g:grammarous#enable_spell_check = 1
-let g:grammarous#show_first_error = 1
-
-
-augroup textobj_quote
-  autocmd!
-  autocmd FileType markdown call textobj#quote#init()
-augroup END
-
-autocmd Filetype markdown call UniCycleOn()
-autocmd Filetype text call UniCycleOn()
-
-let g:goyo_width = 80
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-nmap <Leader>g <Plug>(grammarous-move-to-info-window)
-
 set cursorline
 let g:workspace_autosave = 0
 set lazyredraw
@@ -431,6 +405,5 @@ set visualbell
 set title
 set columns=120
 set textwidth=120
-
 
 set secure " END OF CONFIG
