@@ -1,6 +1,6 @@
 " ======= Loading Vundle
-
 " Use Vim settings, rather than Vi settings
+set pyxversion=3
 set nocompatible
 
 filetype off
@@ -10,11 +10,14 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/bin/fzf
 call vundle#begin()
 
-"let Vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim'
 
 " ####### Plugins #########
+Plugin 'file:///home/aron/Programming/GitHub/jupyter-vim'
+
 Plugin 'airblade/vim-gitgutter'
-Plugin 'chriskempson/base16-vim'
+"Plugin 'chriskempson/base16-vim'
+Plugin 'danielwe/base16-vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'derekwyatt/vim-scala'
@@ -24,7 +27,6 @@ Plugin 'euclio/gitignore.vim'
 Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
 Plugin 'francoiscabrol/ranger.vim'
-Plugin 'gmarik/Vundle.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'heavenshell/vim-pydocstring'
 "Plugin 'leafgarland/typescript-vim'
@@ -331,7 +333,7 @@ nmap <leader>f <Plug>(ale_fix)
 
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_maxcount = 2
 
 let g:multi_cursor_use_default_mapping=0
