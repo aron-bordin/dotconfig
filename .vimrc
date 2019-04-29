@@ -1,6 +1,6 @@
 " ======= Loading Vundle
-
 " Use Vim settings, rather than Vi settings
+set pyxversion=3
 set nocompatible
 
 filetype off
@@ -10,11 +10,12 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/bin/fzf
 call vundle#begin()
 
-"let Vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim'
 
 " ####### Plugins #########
 Plugin 'airblade/vim-gitgutter'
-Plugin 'chriskempson/base16-vim'
+"Plugin 'chriskempson/base16-vim'
+Plugin 'danielwe/base16-vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'derekwyatt/vim-scala'
@@ -24,27 +25,24 @@ Plugin 'euclio/gitignore.vim'
 Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
 Plugin 'francoiscabrol/ranger.vim'
-Plugin 'gmarik/Vundle.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'heavenshell/vim-pydocstring'
 "Plugin 'leafgarland/typescript-vim'
 "Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'inside/vim-search-pulse'
 Plugin 'juliosueiras/vim-terraform-completion'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'kana/vim-textobj-user'
 Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
+Plugin 'matze/vim-move'
 Plugin 'mbbill/undotree'
 Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
-Plugin 'reedes/vim-textobj-quote'
-Plugin 'rhysd/vim-grammarous'
+Plugin 'raimondi/delimitmate'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdcommenter'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
 Plugin 'takac/vim-hardtime'
@@ -55,6 +53,8 @@ Plugin 'thaerkh/vim-workspace'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 't9md/vim-choosewin'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -210,18 +210,8 @@ set foldlevel=99
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let python_highlight_all=1
 
-" syntastic settings
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 let g:airline_powerline_fonts = 1
-let g:airline_theme='luna'
+let g:airline_theme='bubblegum'
 
 set incsearch
 set hlsearch
@@ -336,7 +326,7 @@ nmap <leader>f <Plug>(ale_fix)
 
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_maxcount = 2
 
 let g:multi_cursor_use_default_mapping=0
@@ -400,36 +390,37 @@ let g:workspace_session_disable_on_args = 1
 
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
-let g:grammarous#languagetool_cmd = 'languagetool'
-let g:grammarous#default_lang = 'pt-BR'
-let g:grammarous#enable_spell_check = 1
-let g:grammarous#show_first_error = 1
-
-
-augroup textobj_quote
-  autocmd!
-  autocmd FileType markdown call textobj#quote#init()
-augroup END
-
-autocmd Filetype markdown call UniCycleOn()
-
-let g:goyo_width = 80
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-nmap <Leader>g <Plug>(grammarous-move-to-info-window)
-
 set cursorline
 let g:workspace_autosave = 0
 set lazyredraw
 set showmatch
 set smartcase
-set encoding=utf-8
 set visualbell
 set title
 set columns=120
 set textwidth=120
 
+let g:airline#extensions#tabline#enabled = 1
+let g:move_key_modifier = 'S'
+
+function! WinLabel()
+endfunction
+
+nmap <tab> <Plug>(choosewin)
+
+let g:choosewin_label='ABCDEFGHIJKLMNOPQRTUVWYZ'
+let g:choosewin_statusline_replace='0'
+
+function! WinLabel(...)
+    let builder = a:1
+    let context = a:2
+    let n = winnr() - 1
+    let x = ' [' . g:choosewin_label[n] . '] '
+    call builder.add_section('airline_b', x)
+    return 0
+endfunction
+
+call airline#add_statusline_func('WinLabel')
+call airline#add_inactive_statusline_func('WinLabel')
 
 set secure " END OF CONFIG
