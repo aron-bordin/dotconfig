@@ -414,13 +414,13 @@ let g:choosewin_statusline_replace='0'
 function! WinLabel(...)
     let builder = a:1
     let context = a:2
-    let n = winnr() - 1
-    let x = ' [' . g:choosewin_label[n] . '] '
-    call builder.add_section('airline_b', x)
+
+    call builder.add_section('airline_b', '%{"[ " . g:choosewin_label[winnr() - 1] . " ]"}')
     return 0
 endfunction
 
 call airline#add_statusline_func('WinLabel')
 call airline#add_inactive_statusline_func('WinLabel')
+
 
 set secure " END OF CONFIG
