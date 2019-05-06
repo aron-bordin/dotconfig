@@ -1,0 +1,4 @@
+#!/bin/bash
+~/.config/i3/interfacelift_downloader.py >/dev/null 2>/dev/null
+
+echo "OK"
