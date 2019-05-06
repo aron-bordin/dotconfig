@@ -26,7 +26,6 @@ Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'hashivim/vim-terraform'
-Plugin 'heavenshell/vim-pydocstring'
 "Plugin 'leafgarland/typescript-vim'
 "Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'inside/vim-search-pulse'
@@ -421,6 +420,5 @@ endfunction
 
 call airline#add_statusline_func('WinLabel')
 call airline#add_inactive_statusline_func('WinLabel')
-
 
 set secure " END OF CONFIG
