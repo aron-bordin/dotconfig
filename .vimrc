@@ -37,7 +37,7 @@ Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
 Plugin 'matze/vim-move'
 Plugin 'mbbill/undotree'
-Plugin 'nvie/vim-flake8'
+" Plugin 'nvie/vim-flake8'
 Plugin 'posva/vim-vue'
 Plugin 'raimondi/delimitmate'
 Plugin 'ryanoasis/vim-devicons'
@@ -258,18 +258,10 @@ nnoremap tl :tablast<CR>
 
 inoremap <C-o> <Esc>O<Esc>jA
 
-map <C-p> :CommandT<CR>
-
-if &term =~ "xterm" || &term =~ "screen"
-    let g:CommandTCancelMap = ['<ESC>', '<C-c>']
-endif
-
 nmap <silent> <C-i> <Plug>(pydocstring)
 set pastetoggle=<F3>
 
 autocmd Filetype scala setlocal ts=4 sw=4 expandtab
-
-let g:CommandTWildIgnore=&wildignore . ",*/bower_components,*/data,*/venv,*/.git,*/dataset,*/.tox"
 
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
@@ -277,6 +269,8 @@ let g:ale_completion_enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-q> <Plug>(ale_previous_wrap)
+nmap <silent> <C-w> <Plug>(ale_next_wrap)
 
 "let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
@@ -322,6 +316,7 @@ nnoremap ,S :FzfRg<CR>
 "nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 
 nmap <leader>f <Plug>(ale_fix)
+nmap <leader>F <Plug>(ALEFixSuggest)
 
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
@@ -341,10 +336,14 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
 let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
-\   'python': ['autopep8'],
+\   'python': ['autopep8', 'yapf'],
 \}
 
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\}
 nnoremap ! '
 nnoremap ' `
 
@@ -420,5 +419,8 @@ endfunction
 
 call airline#add_statusline_func('WinLabel')
 call airline#add_inactive_statusline_func('WinLabel')
+
+" let g:flake8_show_in_gutter = 0
+" let g:flake8_show_in_file = 0
 
 set secure " END OF CONFIG
