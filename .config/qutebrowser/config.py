@@ -8,6 +8,7 @@ c.aliases['list-downloads'] = 'spawn --userscript open_download'
 c.aliases['youtube-dl'] = 'spawn --userscript youtube-dl'
 c.aliases['video'] = 'spawn --userscript play-video'
 c.aliases['lyrics'] = 'spawn --userscript lyrics'
+c.aliases['pocket'] = 'open -t https://getpocket.com/edit?url={url}'
 
 c.url.searchengines = {
     "DEFAULT":'https://google.com/search?q={}',

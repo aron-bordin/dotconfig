@@ -20,13 +20,25 @@ settings:
         ',j': json
         ',l': lyrics
         ',o': spawn --userscript history
-        ',p': spawn --userscript passwd
+        ',p': pocket
         ',s': set-cmd-text :buffer 0
         ',t': open --tab https://translate.google.com/#auto/nl/{primary}
         ',v': hint links run video {hint-url}
         ',yd': spawn --userscript youtube-dl
         J: tab-prev
         K: tab-next
+  bindings.key_mappings:
+    global:
+      <Ctrl-6>: <Ctrl-^>
+      <Ctrl-Enter>: <Ctrl-Return>
+      <Ctrl-J>: <Return>
+      <Ctrl-M>: <Return>
+      <Ctrl-[>: <Escape>
+      <Enter>: <Return>
+      <Shift-Enter>: <Return>
+      <Shift-Return>: <Return>
+  colors.completion.category.bg:
+    global: '#2e3440'
   completion.cmd_history_max_items:
     global: 1000
   completion.timestamp_format:
@@ -159,6 +171,8 @@ settings:
     - progress
   tabs.background:
     global: true
+  tabs.close_mouse_button:
+    global: middle
   tabs.indicator.width:
     global: 3
   tabs.new_position.related:

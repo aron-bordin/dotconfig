@@ -26,6 +26,7 @@ Plugin 'ekalinin/dockerfile.vim'
 Plugin 'ervandew/supertab'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'hashivim/vim-terraform'
+" Plugin 'heavenshell/vim-pydocstring'
 "Plugin 'leafgarland/typescript-vim'
 "Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'inside/vim-search-pulse'
@@ -342,7 +343,7 @@ let g:ale_fixers = {
 \}
 
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
+\   'python': ['flake8'],
 \}
 nnoremap ! '
 nnoremap ' `
