@@ -158,11 +158,13 @@ mode $mode_system {
 bindsym $mod+End mode $mode_system
 bindsym $mod+Delete mode $mode_system
 
-set $mode_display " - (d) Desktop"
+set $mode_display " - (n) Notebook, (m) Notebook + 1 Display, (p) Notebook + 2 Displays"
 
 mode $mode_display {
     
-    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
+    bindsym p exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
+    bindsym n exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --off, mode "default"
+    bindsym m exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x1080 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"	
