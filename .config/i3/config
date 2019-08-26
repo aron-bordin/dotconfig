@@ -190,18 +190,33 @@ client.urgent 		$urgent-bg-color   $urgent-bg-color   $text-color	    $indicator
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    tray_output primary
-    tray_padding 5
-    status_command i3blocks -c ~/.config/i3/configBlocks
+    output HDMI-1-1
+    output HDMI-1-2
+    status_command i3blocks -c ~/.config/i3/configBlocksSmall
+
 	colors {
 		background $bg-color
-	    	separator #757575
+	    separator #757575
 		#                  border             	background         text
 		focused_workspace  $inactive-text-color $bg-color          $text-color
 		inactive_workspace $inactive-bg-color 	$inactive-bg-color $inactive-text-color
 		urgent_workspace   $text-color       	$urgent-text-color   $text-color                 
 	}
+}
 
+bar {
+    output primary
+    tray_output primary
+    tray_padding 5
+    status_command i3blocks -c ~/.config/i3/configBlocks
+	colors {
+		background $bg-color
+	    separator #757575
+		#                  border             	background         text
+		focused_workspace  $inactive-text-color $bg-color          $text-color
+		inactive_workspace $inactive-bg-color 	$inactive-bg-color $inactive-text-color
+		urgent_workspace   $text-color       	$urgent-text-color   $text-color                 
+	}
 }
 
 bindsym --release $mod+shift+k exec xkill
