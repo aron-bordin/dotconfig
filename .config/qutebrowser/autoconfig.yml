@@ -10,10 +10,14 @@ settings:
   bindings.commands:
     global:
       normal:
+        ',A': set content.headers.user_agent "Googlebot/2.1 (+http://www.google.com/bot.html)";;
+          reload
         ',F': open --tab {primary}
         ',H': open -t https://google.com
         ',O': spawn --userscript history --tab
         ',V': video
+        ',a': set content.headers.user_agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";; reload
         ',c': code
         ',f': open {primary}
         ',h': open https://google.com
@@ -47,7 +51,7 @@ settings:
     global: true
   completion.web_history.exclude:
     global:
-    - https://*.google.com/*
+    - https://*.google.com/+
   completion.web_history.max_items:
     global: 10000
   confirm_quit:
@@ -56,15 +60,18 @@ settings:
   content.default_encoding:
     global: utf-8
   content.headers.accept_language:
-    global: en-US,en,pt-BR,pt
+    global: en-US,en
   content.headers.referer:
     global: same-domain
   content.headers.user_agent:
-    global: Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0
+    global: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/75.0.3770.142 Safari/537.36
   content.host_blocking.enabled:
     global: true
   content.local_content_can_access_remote_urls:
     global: true
+  content.media_capture:
+    https://web.whatsapp.com: true
   content.pdfjs:
     global: false
   content.plugins:
@@ -185,6 +192,8 @@ settings:
     global: next
   tabs.show:
     global: multiple
+  tabs.title.format:
+    global: '{audio}{index}: {current_title} {perc}'
   tabs.width:
     global: 25%
   url.default_page:

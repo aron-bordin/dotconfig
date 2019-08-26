@@ -102,3 +102,13 @@ end
 if set -q VIMRUNTIME
     set -gx FZF_DEFAULT_OPTS "--preview '~/.config/ranger/scope.sh {} 0 0 /tmp/ False'" $FZF_DEFAULT_OPTS
 end
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/serverless.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/serverless.fish
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/sls.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/sls.fish
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/slss.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/slss.fish
