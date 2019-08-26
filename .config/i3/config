@@ -158,11 +158,13 @@ mode $mode_system {
 bindsym $mod+End mode $mode_system
 bindsym $mod+Delete mode $mode_system
 
-set $mode_display " - (d) Desktop"
+set $mode_display " - (n) Notebook, (m) Notebook + 1 Display, (p) Notebook + 2 Displays"
 
 mode $mode_display {
     
-    bindsym d exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
+    bindsym p exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-2 --off, mode "default"
+    bindsym n exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --off, mode "default"
+    bindsym m exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x1080 --rotate normal --output HDMI-1-1 --mode 1920x1080 --pos 0x0 --rotate normal, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"	
@@ -188,18 +190,33 @@ client.urgent 		$urgent-bg-color   $urgent-bg-color   $text-color	    $indicator
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    tray_output primary
-    tray_padding 5
-    status_command i3blocks -c ~/.config/i3/configBlocks
+    output HDMI-1-1
+    output HDMI-1-2
+    status_command i3blocks -c ~/.config/i3/configBlocksSmall
+
 	colors {
 		background $bg-color
-	    	separator #757575
+	    separator #757575
 		#                  border             	background         text
 		focused_workspace  $inactive-text-color $bg-color          $text-color
 		inactive_workspace $inactive-bg-color 	$inactive-bg-color $inactive-text-color
 		urgent_workspace   $text-color       	$urgent-text-color   $text-color                 
 	}
+}
 
+bar {
+    output primary
+    tray_output primary
+    tray_padding 5
+    status_command i3blocks -c ~/.config/i3/configBlocks
+	colors {
+		background $bg-color
+	    separator #757575
+		#                  border             	background         text
+		focused_workspace  $inactive-text-color $bg-color          $text-color
+		inactive_workspace $inactive-bg-color 	$inactive-bg-color $inactive-text-color
+		urgent_workspace   $text-color       	$urgent-text-color   $text-color                 
+	}
 }
 
 bindsym --release $mod+shift+k exec xkill
