@@ -262,6 +262,8 @@ smart_gaps on
 
 bindsym $mod+n move workspace to output left
 bindsym $mod+m move workspace to output right
+bindsym $mod+shift+n move workspace to output down
+bindsym $mod+shift+m move workspace to output up
 
 exec --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
 exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmux new -s Coding -n Vim"' 
