@@ -251,7 +251,7 @@ hide_edge_borders both
 default_border pixel 1
 bindsym Print exec --no-startup-id teiler --screenshot
 
-exec --no-startup-id xautolock -time 9 -bell 0 -locker "$Locker lock"
+exec --no-startup-id xautolock -time 9 -bell 0 -locker "$Locker lock" -detectsleep
 exec --no-startup-id ~/.config/i3/i3-gnome-keyring.sh
 bindsym $mod+shift+a exec pulseaudio -k
 
@@ -270,7 +270,7 @@ exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t tmux -e "tmu
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
 exec --no-startup-id dunst -config /home/aron/.config/dunstrc
-exec --no-startup-id xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --off
+exec --no-startup-id sleep 2 && xrandr --output eDP-1-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-1 --off
 
 for_window [class="Gcolor3"] floating enable
 for_window [window_role="vimInput"] floating enable

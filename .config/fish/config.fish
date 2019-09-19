@@ -1,13 +1,5 @@
-function su
-    /bin/su --shell=/usr/bin/fish $argv
-end
-
 function vimf
     vim -O (fzf)
-end
-
-function fish_user_key_bindings
-  fzf_key_bindings
 end
 
 function ranger
@@ -25,7 +17,6 @@ function ranger-cd
     rm -f "$tempfile"
 end
 
-
 function ccat
     pygmentize -g $argv
 end
@@ -35,23 +26,16 @@ function update_pip
     pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip2 install -U
 end
 
-
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx EDITOR vim
-set -gx ARON_GEM_PATH ~/.gem/ruby/2.6.0/bin
 set -gx ARON_PYTHON_PATH /home/aron/.local/bin
-set -gx JAVA_OPTS -Xmx2g
-set -gx JAVA_HOME /usr/lib/jvm/java-8-openjdk/
-set -gx MONGO_HOST mongodb://127.0.0.1:27017
  
-set -gx PATH $ARON_GEM_PATH $PATH
 set -gx PATH $ARON_PYTHON_PATH $PATH
-set -gx NODE_PATH /usr/lib/node_modules/
 set -gx XDG_CURRENT_DESKTOP GNOME
+
 set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git'
 set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
-
 
 setenv SSH_ENV $HOME/.ssh/environment
 
@@ -79,15 +63,9 @@ function gnome-keyring-daemon
   end
 end
 
-function activate_resty
-    set -gx PATH /opt/openresty/bin/ $PATH
-    set -gx PATH /opt/openresty/nginx/sbin/ $PATH
-end
-
 function activate_term
     set -x TERM xterm-color
 end
-
 
 abbr setclip "xclip -selection c"
 abbr getclip "xclip -selection c -o"
@@ -103,12 +81,8 @@ if set -q VIMRUNTIME
     set -gx FZF_DEFAULT_OPTS "--preview '~/.config/ranger/scope.sh {} 0 0 /tmp/ False'" $FZF_DEFAULT_OPTS
 end
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/serverless.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/serverless.fish
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/sls.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/sls.fish
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/slss.fish ]; and . /home/aron/Programming/GitHub/sls-indexer/node_modules/tabtab/.completions/slss.fish
+bind \cj 'ranger-cd'
+fzf_key_bindings
+fish_vi_key_bindings
+bind -M insert \cf accept-autosuggestion
+bind \cf accept-autosuggestion

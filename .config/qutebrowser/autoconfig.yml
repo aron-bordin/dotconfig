@@ -72,6 +72,9 @@ settings:
     global: true
   content.media_capture:
     https://web.whatsapp.com: true
+    https://whereby.com: true
+  content.notifications:
+    https://www.buscape.com.br: true
   content.pdfjs:
     global: false
   content.plugins:
