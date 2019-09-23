@@ -10,6 +10,11 @@ function ranger
     end
 end
 
+function pyclean
+    find . -type f -name "*.py[co]" -delete
+    find . -type d -name "__pycache__" -delete
+end
+
 function ranger-cd
     set -x tempfile (mktemp -t tmp.XXXXXX)
     ranger --choosedir="$tempfile" "$HOME"
