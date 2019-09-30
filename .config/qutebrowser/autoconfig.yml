@@ -74,6 +74,7 @@ settings:
     https://web.whatsapp.com: true
     https://whereby.com: true
   content.notifications:
+    https://calendar.google.com: true
     https://www.buscape.com.br: true
   content.pdfjs:
     global: false

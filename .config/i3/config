@@ -206,7 +206,7 @@ bar {
 
 bar {
     output primary
-    tray_padding 5
+    tray_output primary
     status_command 2>/tmp/i3blocks.err i3blocks -v -c ~/.config/i3/configBlocks | tee /tmp/i3blocks.out
 	colors {
 		background $bg-color

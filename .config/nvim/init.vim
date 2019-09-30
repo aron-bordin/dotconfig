@@ -6,17 +6,18 @@ set nocompatible
 filetype off
 
 " Set the runtime path to include Vundle and initialize
-set rtp+=/usr/bin/fzf
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged-nvim')
 "
+Plug '/usr/bin/fzf'
 " ####### Plugins #########
 Plug 'airblade/vim-gitgutter'
 Plug 'brooth/far.vim'
 "Plug 'chriskempson/base16-vim'
 Plug 'danielwe/base16-vim'
-" Plug 'dense-analysis/ale'
+Plug 'davidhalter/jedi-vim'
+Plug 'dense-analysis/ale'
 Plug 'chrisbra/Recover.vim'
-"Plug 'davidhalter/jedi-vim'
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'easymotion/vim-easymotion'
 Plug 'ekalinin/dockerfile.vim'
 Plug 'ervandew/supertab'
@@ -29,12 +30,13 @@ Plug 'Konfekt/FastFold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
 Plug 'matze/vim-move'
+Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " Plug 'nvie/vim-flake8'
 Plug 'posva/vim-vue'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ryanoasis/vim-devicons'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'takac/vim-hardtime'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmhedberg/SimpylFold'
@@ -250,13 +252,16 @@ set pastetoggle=<F3>
 autocmd Filetype scala setlocal ts=4 sw=4 expandtab
 
 let g:airline#extensions#ale#enabled = 1
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-q> <Plug>(ale_previous_wrap)
 nmap <silent> <C-w> <Plug>(ale_next_wrap)
+let g:ale_sign_error = '💥'
+let g:ale_sign_warning = '⚠'
+
 
 "let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
@@ -426,5 +431,12 @@ endif
 " let g:flake8_show_in_file = 0
 
 let g:highlightedyank_highlight_duration = 1000
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#max_info_width = 0
+autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
+let g:jedi#completions_enabled = 0
+autocmd VimEnter,VimLeave * silent !tmux set status
+
 
 set secure " END OF CONFIG

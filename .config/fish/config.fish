@@ -10,6 +10,19 @@ function ranger
     end
 end
 
+function venv-create
+    virtualenv venv
+    set -x pynvim_path (python -c "import pynvim; print(pynvim.__path__[0])")
+    # nvim deps
+    set -x msgpack_path (python -c "import msgpack; print(msgpack.__path__[0])")
+    set -x greenlet_path (python -c "import greenlet; print(greenlet.__file__)")
+    ln -s $pynvim_path venv/lib/python*/site-packages
+
+    ln -s $msgpack_path venv/lib/python*/site-packages
+    ln -s $greenlet_path venv/lib/python*/site-packages/
+    source venv/bin/activate.fish
+end
+
 function pyclean
     find . -type f -name "*.py[co]" -delete
     find . -type d -name "__pycache__" -delete
@@ -32,10 +45,12 @@ function update_pip
 end
 
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
+set -gx GEM_PATH $HOME/.gem/ruby/2.6.0/bin
 set -gx EDITOR vim
-set -gx ARON_PYTHON_PATH /home/aron/.local/bin
+set -gx ARON_LOCAL_PATH $HOME/.local/bin
  
-set -gx PATH $ARON_PYTHON_PATH $PATH
+set -gx PATH $ARON_GEM_PATH $PATH
+set -gx PATH $ARON_LOCAL_PATH $PATH
 set -gx XDG_CURRENT_DESKTOP GNOME
 
 set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
@@ -76,6 +91,10 @@ abbr setclip "xclip -selection c"
 abbr getclip "xclip -selection c -o"
 abbr 9k "kill -9"
 abbr lss "ls -lha"
+abbr v nvim
+abbr pi "pip install -r requirements.txt"
+abbr venv "source venv/bin/activate.fish"
+
 
 if set -q RANGERCD
     cd $RANGERCD
