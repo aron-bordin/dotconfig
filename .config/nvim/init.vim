@@ -12,6 +12,7 @@ Plug '/usr/bin/fzf'
 " ####### Plugins #########
 Plug 'airblade/vim-gitgutter'
 Plug 'brooth/far.vim'
+Plug 'carlitux/deoplete-ternjs'
 "Plug 'chriskempson/base16-vim'
 Plug 'danielwe/base16-vim'
 Plug 'davidhalter/jedi-vim'
@@ -22,7 +23,9 @@ Plug 'easymotion/vim-easymotion'
 Plug 'ekalinin/dockerfile.vim'
 Plug 'ervandew/supertab'
 Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'  " ranger dep
 Plug 'inside/vim-search-pulse'
+Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'kshenoy/vim-signature'
@@ -45,13 +48,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 't9md/vim-choosewin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'xolox/vim-misc'
 Plug 'zhaocai/GoldenView.Vim'
-Plug 'wokalski/autocomplete-flow'
+Plug 'Yggdroot/indentLine'
+Plug 'ycmjason/html5.vim'
 
 " ####### End-Plugins ####
 
@@ -174,7 +179,7 @@ set number
 
 
 " Use bash
-set shell=/bin/bash
+set shell=/usr/bin/fish
 
 "python with virtualenv support
 
@@ -202,24 +207,15 @@ let g:airline_theme='bubblegum'
 
 set incsearch
 set hlsearch
+set inccommand=split
 nnoremap <Leader><space> :noh<cr>
-"let NERDTreeMapActivateNode='<space>'
 
 let &colorcolumn="80,".join(range(121,999),",")
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 set formatoptions-=t
 set updatetime=250
 
 let g:goldenview__enable_default_mapping = 0
-
-" 1. split to tiled windows
-nmap <silent> <Leader>s  <Plug>GoldenViewSplit
-
-" 2. quickly switch current window with the main pane
-" and toggle back
-nmap <silent> <Leader>j   <Plug>GoldenViewSwitchMain
-nmap <silent> <Leader>k <Plug>GoldenViewSwitchToggle
 
 nnoremap <F5> :UndotreeToggle<cr>
 nmap <F8> :TagbarToggle<CR>
@@ -231,25 +227,10 @@ nnoremap tj :tabprev<CR>
 nnoremap th :tabfirst<CR>
 nnoremap tl :tablast<CR>
 
-:nmap <ScrollWheelUp> <nop>
-:nmap <S-ScrollWheelUp> <nop>
-:nmap <C-ScrollWheelUp> <nop>
-:nmap <ScrollWheelDown> <nop>
-:nmap <S-ScrollWheelDown> <nop>
-:nmap <C-ScrollWheelDown> <nop>
-:nmap <ScrollWheelLeft> <nop>
-:nmap <S-ScrollWheelLeft> <nop>
-:nmap <C-ScrollWheelLeft> <nop>
-:nmap <ScrollWheelRight> <nop>
-:nmap <S-ScrollWheelRight> <nop>
-:nmap <C-ScrollWheelRight> <nop>
-
 inoremap <C-o> <Esc>O<Esc>jA
-
 nmap <silent> <C-i> <Plug>(pydocstring)
-set pastetoggle=<F3>
 
-autocmd Filetype scala setlocal ts=4 sw=4 expandtab
+set pastetoggle=<F3>
 
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 0
@@ -262,15 +243,10 @@ nmap <silent> <C-w> <Plug>(ale_next_wrap)
 let g:ale_sign_error = '💥'
 let g:ale_sign_warning = '⚠'
 
-
 "let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-"let NERDTreeShowHidden=1
-"let NERDTreeShowLineNumbers=1
-"let NERDTreeMinimalUI=1
-"map <C-m> :NERDTreeToggle<CR>
 let g:gitgutter_max_signs=700
 let g:SimpylFold_docstring_preview = 1
 
@@ -299,19 +275,17 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 let g:fzf_command_prefix = 'Fzf'
 
-nnoremap ,f :FZF<CR>
+nnoremap ,f :FzfFiles<CR>
 nnoremap ,F :FzfGFiles<CR>
 nnoremap ,b :FzfBuffers<CR>
 nnoremap ,s :FzfAg<CR>
 nnoremap ,S :FzfRg<CR>
-"nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 
 nmap <leader>f <Plug>(ale_fix)
 nmap <leader>F <Plug>(ALEFixSuggest)
 
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
-let g:hardtime_default_on = 0
 let g:hardtime_maxcount = 2
 
 let g:multi_cursor_use_default_mapping=0
@@ -328,36 +302,17 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'python': ['autopep8', 'yapf'],
+\   'javascript': ['eslint', 'prettier'],
+\   'python': ['autopep8', 'flake8', 'yapf'],
 \}
 
 let g:ale_linters = {
-\   'python': ['flake8'],
+\   'python': ['autopep8', 'flake8', 'yapf'],
+\   'javascript': ['prettier']
 \}
-nnoremap ! '
-nnoremap ' `
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_smartcase = 1
-"let NERDTreeQuitOnOpen = 1
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-"let NERDTreeAutoDeleteBuffer = 1
-"let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
-
-function StartGolden()
-    call GoldenView#Split()
-    call GoldenView#zl#window#next_window_or_tab()
-    call GoldenView#Split()
-    call GoldenView#zl#window#next_window_or_tab()
-    call GoldenView#zl#window#previous_window_or_tab()
-    call GoldenView#zl#window#previous_window_or_tab()
-    return "abc"
-endfunction
-command StartGolden call StartGolden()
-map ,g : StartGolden<CR>
-
 
 nnoremap <F2> :call ToogleFold()<CR>
 
@@ -376,8 +331,6 @@ map <leader>M :RangerWorkingDirectory<CR>
 nnoremap <leader>w :ToggleWorkspace<CR>
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
-
-nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 set cursorline
 let g:workspace_autosave = 0
@@ -427,16 +380,45 @@ if has('wildmenu')
 	set wildignore+=*.pyc
 endif
 
-" let g:flake8_show_in_gutter = 0
-" let g:flake8_show_in_file = 0
-
 let g:highlightedyank_highlight_duration = 1000
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#max_info_width = 0
 autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
 let g:jedi#completions_enabled = 0
-autocmd VimEnter,VimLeave * silent !tmux set status
 
+if has('autocmd') && v:version > 701
+    augroup todo
+        autocmd!
+        autocmd Syntax * call matchadd(
+                    \ 'Debug',
+                    \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|REMOVE|XXX|BUG|HACK|TRICKY)>'
+                    \ )
+    augroup END
+endif
+
+let g:deoplete#sources#ternjs#filetypes = ['vue']
+
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
+
+nmap t<C-n> :TestNearest<CR>
+nmap t<C-f> :TestFile<CR>
+nmap t<C-s> :TestSuite<CR>
+nmap t<C-l> :TestLast<CR>
+nmap t<C-g> :TestVisit<CR>
+
+let test#strategy = "neovim"
+let g:test#preserve_screen = 1
+let test#neovim#term_position = "belowright"
+let test#python#runner = 'pytest'
+let test#enabled_runners = ["python#pytest"]
+
+let test#python#pytest#options = {
+  \ 'all':   '--cov-report term-missing'
+\}
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 
 set secure " END OF CONFIG

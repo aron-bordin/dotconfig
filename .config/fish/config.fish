@@ -1,3 +1,5 @@
+alias vim nvim
+
 function vimf
     vim -O (fzf)
 end
@@ -44,6 +46,10 @@ function update_pip
     pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip2 install -U
 end
 
+function activate_depot_tools
+    set -gx PATH $HOME/Programming/general/depot_tools $PATH
+end
+
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx GEM_PATH $HOME/.gem/ruby/2.6.0/bin
 set -gx EDITOR vim
@@ -54,7 +60,7 @@ set -gx PATH $ARON_LOCAL_PATH $PATH
 set -gx XDG_CURRENT_DESKTOP GNOME
 
 set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
-set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git'
+set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git --exclude venv --exclude node_modules'
 set -gx FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
 setenv SSH_ENV $HOME/.ssh/environment
@@ -91,10 +97,40 @@ abbr setclip "xclip -selection c"
 abbr getclip "xclip -selection c -o"
 abbr 9k "kill -9"
 abbr lss "ls -lha"
-abbr v nvim
-abbr pi "pip install -r requirements.txt"
-abbr venv "source venv/bin/activate.fish"
 
+alias pi "pip install -r requirements.txt"
+alias venv "source venv/bin/activate.fish"
+
+alias n vim
+alias nf vimf
+
+function vvim
+    set -l session (abduco -l|grep nvim-session)
+
+    if [ -z "$session" ]
+        rm -f /tmp/vim-server
+        abduco -e '^g' -A nvim-session nvim --cmd "let g:server_addr = serverstart('/tmp/vim-server')" $argv
+        return
+    end
+
+    echo "Already running"
+end
+
+function vvim-send
+    $HOME/Programming/GitHub/dotconfig/.config/nvim/send.py $argv
+end
+
+function split 
+    vvim-send :split $argv
+end
+
+function vsplit 
+    vvim-send :vsplit $argv
+end
+
+function tsplit
+    vvim-send :tabnew $argv
+end
 
 if set -q RANGERCD
     cd $RANGERCD

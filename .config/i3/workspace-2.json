@@ -16,13 +16,13 @@
                "x": 0,
                "y": 0
             },
-            "name": "Coding:1:fish - \"fish  /home/aron\" ",
+            "name": "fish  /home/aron",
             "percent": 0.8,
             "swallows": [
                {
                 "class": "^Termite$",
                 "instance": "^termite$",
-                "title": "^tmux$",
+                "title": "^vvim$",
                 "transient_for": "^$"
                }
             ],

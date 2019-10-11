@@ -6,9 +6,12 @@ SETUVAR __fish_init_3_x:\x1d
 SETUVAR _fish_abbr_9k:kill\x20\x2d9
 SETUVAR _fish_abbr_getclip:xclip\x20\x2dselection\x20c\x20\x2do
 SETUVAR _fish_abbr_lss:ls\x20\x2dlha
+SETUVAR _fish_abbr_n:nvim
+SETUVAR _fish_abbr_nf:nvim\x20\x2dO\x20\x28fzf\x29
 SETUVAR _fish_abbr_pi:pip\x20install\x20\x2dr\x20requirements\x2etxt
 SETUVAR _fish_abbr_setclip:xclip\x20\x2dselection\x20c
 SETUVAR _fish_abbr_v:nvim
+SETUVAR _fish_abbr_venv:source\x20venv/bin/activate\x2efish
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7
