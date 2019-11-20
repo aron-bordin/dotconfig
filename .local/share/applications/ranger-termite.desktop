@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=ranger-termite
+Comment=Launches the ranger file manager
+Icon=utilities-terminal
+# Terminal=true
+Exec=/home/aron/.local/bin/ranger-termite
+Categories=ConsoleOnly;System;FileTools;FileManager
+MimeType=inode/directory;

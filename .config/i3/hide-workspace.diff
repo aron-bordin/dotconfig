@@ -1,0 +1,317 @@
+diff -duw --recursive ./i3bar/include/config.h /home/luser/i3/i3-4.12/i3bar/include/config.h
+--- ./i3bar/include/config.h	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/i3bar/include/config.h	2016-05-01 08:07:59.634130973 -0700
+@@ -48,6 +48,7 @@
+     char *command;
+     char *fontname;
+     i3String *separator_symbol;
++    i3String *ignore_end;
+     TAILQ_HEAD(tray_outputs_head, tray_output_t) tray_outputs;
+     int tray_padding;
+     int num_outputs;
+diff -duw --recursive ./i3bar/include/workspaces.h /home/luser/i3/i3-4.12/i3bar/include/workspaces.h
+--- ./i3bar/include/workspaces.h	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/i3bar/include/workspaces.h	2016-05-01 10:58:15.658377279 -0700
+@@ -29,6 +29,12 @@
+  */
+ void free_workspaces(void);
+ 
++/*
++ * check if the workspace should be skipped in the pager based on its name
++ *
++ */
++bool skippable_workspace(i3String *ts);
++
+ struct i3_ws {
+     int num;                  /* The internal number of the ws */
+     char *canonical_name;     /* The true name of the ws according to the ipc */
+diff -duw --recursive ./i3bar/src/config.c /home/luser/i3/i3-4.12/i3bar/src/config.c
+--- ./i3bar/src/config.c	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/i3bar/src/config.c	2016-05-01 10:44:32.344805265 -0700
+@@ -202,6 +202,13 @@
+         return 1;
+     }
+ 
++    if (!strcmp(cur_key, "ignore_workspaces_ending_with")) {
++        DLOG("ignore = %.*s\n", len, val);
++        I3STRING_FREE(config.ignore_end);
++        config.ignore_end = i3string_from_utf8_with_length((const char *)val, len);
++        return 1;
++    }
++
+     if (!strcmp(cur_key, "outputs")) {
+         DLOG("+output %.*s\n", len, val);
+         int new_num_outputs = config.num_outputs + 1;
+diff -duw --recursive ./i3bar/src/workspaces.c /home/luser/i3/i3-4.12/i3bar/src/workspaces.c
+--- ./i3bar/src/workspaces.c	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/i3bar/src/workspaces.c	2016-05-01 12:48:50.897102229 -0700
+@@ -250,6 +250,41 @@
+ }
+ 
+ /*
++ * check if the workspace should be skipped in the pager based on its name
++ *
++ */
++bool skippable_workspace(i3String *ts) {
++    const char *uts, *uconf;
++    size_t lts, lconf;
++
++    /* Not configured, return */
++    if (config.ignore_end == NULL)
++        return false;
++
++    /* For the comparison use unicode, we don't have to interpret things
++       just a dumb check that the bytes are the same is enough */
++    uts = i3string_as_utf8(ts);
++    lts = i3string_get_num_bytes(ts);
++    uconf = i3string_as_utf8(config.ignore_end);
++    lconf = i3string_get_num_bytes(config.ignore_end);
++
++    /* If the workspace name is shorter it won't match for sure */
++    if (lconf > lts)
++        return false;
++
++    size_t offset = lts - lconf;
++    bool skip = true;
++    for (int i=lconf-1; i >= 0; i--) {
++        if (uts[i + offset] != uconf[i]) {
++            skip = false;
++            break;
++        }
++    }
++
++    return skip;
++}
++
++/*
+  * free() all workspace data structures. Does not free() the heads of the tailqueues.
+  *
+  */
+diff -duw --recursive ./i3bar/src/xcb.c /home/luser/i3/i3-4.12/i3bar/src/xcb.c
+--- ./i3bar/src/xcb.c	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/i3bar/src/xcb.c	2016-05-01 12:50:05.279892348 -0700
+@@ -472,6 +472,14 @@
+     i3_ws *cur_ws = NULL, *clicked_ws = NULL, *ws_walk;
+ 
+     TAILQ_FOREACH(ws_walk, walk->workspaces, tailq) {
++        if (skippable_workspace(ws_walk->name)) {
++            /* Update cur_ws if needed */
++            if (ws_walk->visible) {
++                cur_ws = ws_walk;
++            }
++            continue;
++        }
++
+         int w = 2 * logical_px(ws_hoff_px) + 2 * logical_px(1) + ws_walk->name_width;
+         if (x >= workspace_width && x <= workspace_width + w)
+             clicked_ws = ws_walk;
+@@ -1939,6 +1947,9 @@
+         if (!config.disable_ws) {
+             i3_ws *ws_walk;
+             TAILQ_FOREACH(ws_walk, outputs_walk->workspaces, tailq) {
++                if (skippable_workspace(ws_walk->name))
++                    continue;
++
+                 DLOG("Drawing button for WS %s at x = %d, len = %d\n",
+                      i3string_as_utf8(ws_walk->name), workspace_width, ws_walk->name_width);
+                 color_t fg_color = colors.inactive_ws_fg;
+diff -duw --recursive ./include/config_directives.h /home/luser/i3/i3-4.12/include/config_directives.h
+--- ./include/config_directives.h	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/include/config_directives.h	2016-05-01 08:05:41.986130973 -0700
+@@ -71,6 +71,7 @@
+ 
+ CFGFUN(bar_font, const char *font);
+ CFGFUN(bar_separator_symbol, const char *separator);
++CFGFUN(bar_ignore_end, const char *ignore);
+ CFGFUN(bar_mode, const char *mode);
+ CFGFUN(bar_hidden_state, const char *hidden_state);
+ CFGFUN(bar_id, const char *bar_id);
+diff -duw --recursive ./include/config.h /home/luser/i3/i3-4.12/include/config.h
+--- ./include/config.h	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/include/config.h	2016-05-01 08:05:28.026130973 -0700
+@@ -304,6 +304,9 @@
+     /** A custom separator to use instead of a vertical line. */
+     char *separator_symbol;
+ 
++    /** Do not display workspaces ending with this in i3bar. */
++    char *ignore_end;
++
+     /** Hide workspace buttons? Configuration option is 'workspace_buttons no'
+      * but we invert the bool to get the correct default when initializing with
+      * zero. */
+diff -duw --recursive ./parser-specs/config.spec /home/luser/i3/i3-4.12/parser-specs/config.spec
+--- ./parser-specs/config.spec	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/parser-specs/config.spec	2016-05-01 08:10:09.738130973 -0700
+@@ -415,6 +415,7 @@
+   'tray_padding'           -> BAR_TRAY_PADDING
+   'font'                   -> BAR_FONT
+   'separator_symbol'       -> BAR_SEPARATOR_SYMBOL
++  'ignore_workspaces_ending_with' -> BAR_IGNORE_END
+   'binding_mode_indicator' -> BAR_BINDING_MODE_INDICATOR
+   'workspace_buttons'      -> BAR_WORKSPACE_BUTTONS
+   'strip_workspace_numbers' -> BAR_STRIP_WORKSPACE_NUMBERS
+@@ -502,6 +503,10 @@
+   separator = string
+       -> call cfg_bar_separator_symbol($separator); BAR
+ 
++state BAR_IGNORE_END:
++  ignore_end = string
++      -> call cfg_bar_ignore_end($ignore_end); BAR
++
+ state BAR_BINDING_MODE_INDICATOR:
+   value = word
+       -> call cfg_bar_binding_mode_indicator($value); BAR
+diff -duw --recursive ./src/config_directives.c /home/luser/i3/i3-4.12/src/config_directives.c
+--- ./src/config_directives.c	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/src/config_directives.c	2016-05-01 08:15:16.793708976 -0700
+@@ -407,6 +407,11 @@
+     current_bar->separator_symbol = sstrdup(separator);
+ }
+ 
++CFGFUN(bar_ignore_end, const char *ignore) {
++    FREE(current_bar->ignore_end);
++    current_bar->ignore_end = sstrdup(ignore);
++}
++
+ CFGFUN(bar_mode, const char *mode) {
+     current_bar->mode = (strcmp(mode, "dock") == 0 ? M_DOCK : (strcmp(mode, "hide") == 0 ? M_HIDE : M_INVISIBLE));
+ }
+diff -duw --recursive ./src/handlers.c /home/luser/i3/i3-4.12/src/handlers.c
+--- ./src/handlers.c	2016-05-01 12:46:08.968076349 -0700
++++ /home/luser/i3/i3-4.12/src/handlers.c	2016-05-01 07:21:31.873866502 -0700
+@@ -186,7 +186,7 @@
+         /* The user entered the root window coming from another X
+          * screen, this means that the above will not have called
+          * tree_render (leaving the keyboard focus on the other
+-         * screen). Force a rerender depending on focus_crossed_screen.
++         * screen). Force a rerender.
+          */
+         check_crossing_screen_boundary(event->root_x, event->root_y, focus_crossed_screen);
+         return;
+diff -duw --recursive ./src/ipc.c /home/luser/i3/i3-4.12/src/ipc.c
+--- ./src/ipc.c	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/src/ipc.c	2016-05-01 08:06:48.406130973 -0700
+@@ -653,6 +653,11 @@
+         ystr(config->separator_symbol);
+     }
+ 
++    if (config->ignore_end) {
++        ystr("ignore_workspaces_ending_with");
++        ystr(config->ignore_end);
++    }
++
+     ystr("workspace_buttons");
+     y(bool, !config->hide_workspace_buttons);
+ 
+diff -duw --recursive ./testcases/t/201-config-parser.t /home/luser/i3/i3-4.12/testcases/t/201-config-parser.t
+--- ./testcases/t/201-config-parser.t	2016-03-06 07:17:18.000000000 -0800
++++ /home/luser/i3/i3-4.12/testcases/t/201-config-parser.t	2016-05-01 12:31:45.319772349 -0700
+@@ -656,7 +656,7 @@
+ $expected = <<'EOT';
+ cfg_bar_start()
+ cfg_bar_output(LVDS-1)
+-ERROR: CONFIG: Expected one of these tokens: <end>, '#', 'set', 'i3bar_command', 'status_command', 'socket_path', 'mode', 'hidden_state', 'id', 'modifier', 'wheel_up_cmd', 'wheel_down_cmd', 'bindsym', 'position', 'output', 'tray_output', 'tray_padding', 'font', 'separator_symbol', 'binding_mode_indicator', 'workspace_buttons', 'strip_workspace_numbers', 'verbose', 'colors', '}'
++ERROR: CONFIG: Expected one of these tokens: <end>, '#', 'set', 'i3bar_command', 'status_command', 'socket_path', 'mode', 'hidden_state', 'id', 'modifier', 'wheel_up_cmd', 'wheel_down_cmd', 'bindsym', 'position', 'output', 'tray_output', 'tray_padding', 'font', 'separator_symbol', 'ignore_workspaces_ending_with', 'binding_mode_indicator', 'workspace_buttons', 'strip_workspace_numbers', 'verbose', 'colors', '}'
+ ERROR: CONFIG: (in file <stdin>)
+ ERROR: CONFIG: Line   1: bar {
+ ERROR: CONFIG: Line   2:     output LVDS-1
+@@ -670,4 +670,99 @@
+    $expected,
+    'error message (bar block) ok');
+ 
++
++################################################################################
++# i3bar: ignore_workspaces_ending_with test
++################################################################################
++
++$config = <<'EOT';
++bar {
++    output LVDS-1
++    ignore_workspaces_ending_with "test"
++}
++EOT
++
++$expected = <<'EOT';
++cfg_bar_start()
++cfg_bar_output(LVDS-1)
++cfg_bar_ignore_end(test)
++cfg_bar_finish()
++EOT
++
++is(parser_calls($config),
++   $expected,
++   'ignore_workspaces_ending_with basic string ok');
++
++$config = <<'EOT';
++bar {
++    output LVDS-1
++    ignore_workspaces_ending_with ""
++}
++EOT
++
++$expected = <<'EOT';
++cfg_bar_start()
++cfg_bar_output(LVDS-1)
++cfg_bar_ignore_end()
++cfg_bar_finish()
++EOT
++
++is(parser_calls($config),
++   $expected,
++   'ignore_workspaces_ending_with unicode string ok');
++
++$config = <<'EOT';
++bar {
++    output LVDS-1
++    ignore_workspaces_ending_with ""
++}
++EOT
++
++$expected = <<'EOT';
++cfg_bar_start()
++cfg_bar_output(LVDS-1)
++ERROR: CONFIG: Expected one of these tokens: <string>
++ERROR: CONFIG: (in file <stdin>)
++ERROR: CONFIG: Line   1: bar {
++ERROR: CONFIG: Line   2:     output LVDS-1
++ERROR: CONFIG: Line   3:     ignore_workspaces_ending_with ""
++ERROR: CONFIG:                                              ^
++ERROR: CONFIG: Line   4: }
++cfg_bar_finish()
++EOT
++
++is(parser_calls($config),
++   $expected,
++   'ignore_workspaces_ending_with empty string 1 ok');
++
++$config = <<'EOT';
++bar {
++    output LVDS-1
++    ignore_workspaces_ending_with
++}
++EOT
++
++$expected = <<'EOT';
++cfg_bar_start()
++cfg_bar_output(LVDS-1)
++ERROR: CONFIG: Expected one of these tokens: <string>
++ERROR: CONFIG: (in file <stdin>)
++ERROR: CONFIG: Line   1:     output LVDS-1
++ERROR: CONFIG: Line   2:     ignore_workspaces_ending_with
++ERROR: CONFIG: Line   3: }
++ERROR: CONFIG:           ^
++cfg_bar_finish()
++EOT
++
++is(parser_calls($config),
++   $expected,
++   'ignore_workspaces_ending_with empty string 2 ok');
++
++
++
++
++
++
++
++
+ done_testing;
