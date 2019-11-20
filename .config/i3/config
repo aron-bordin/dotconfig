@@ -9,7 +9,6 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec termite
-bindsym $mod+Shift+Return exec ranger-termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -61,40 +60,44 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspaceHome "1|Home "
-set $workspaceCode "2|Code  "
-set $workspaceTerminal "3|Terminal "
-set $workspaceEditor "4|Editor "
-set $workspaceTools "5|Tools "
-set $workspaceWriter "6|Writer "
-set $workspaceChat "9|Chat "
-set $workspaceMusic "10|Music "
+set $workspaceHome "1:1|Home "
+set $workspaceCode "2:2|Code  "
+set $workspaceTerminal "3:3|Terminal "
+set $workspaceEditor "4:4|Editor "
+set $workspaceTools "5:5|Tools "
+set $workspaceWriter "6:6|Writer "
+set $workspaceChat "9:9|Chat "
+set $workspaceMusic "10:10|Music "
 
+set $workspaceManager exec --no-startup-id ~/.config/i3/workspace-manager.py
+
+bindsym $mod+Shift+Return $workspaceManager extend
 
 # switch to workspace
-bindsym $mod+1 workspace $workspaceHome
-bindsym $mod+2 workspace $workspaceCode
-bindsym $mod+3 workspace $workspaceTerminal
-bindsym $mod+4 workspace $workspaceEditor
-bindsym $mod+5 workspace $workspaceTools
-bindsym $mod+6 workspace $workspaceWriter
-bindsym $mod+7 workspace 7
-bindsym $mod+9 workspace $workspaceChat
-bindsym $mod+0 workspace $workspaceMusic
+bindsym $mod+1 $workspaceManager switch $workspaceHome
+bindsym $mod+2 $workspaceManager switch $workspaceCode
+bindsym $mod+3 $workspaceManager switch $workspaceTerminal
+bindsym $mod+4 $workspaceManager switch $workspaceEditor
+bindsym $mod+5 $workspaceManager switch $workspaceTools
+bindsym $mod+6 $workspaceManager switch $workspaceWriter
+bindsym $mod+7 $workspaceManager switch 7
+bindsym $mod+9 $workspaceManager switch $workspaceChat
+bindsym $mod+0 $workspaceManager switch $workspaceMusic
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspaceHome
-bindsym $mod+Shift+2 move container to workspace $workspaceCode
-bindsym $mod+Shift+3 move container to workspace $workspaceTerminal
-bindsym $mod+Shift+4 move container to workspace $workspaceEditor
-bindsym $mod+Shift+5 move container to workspace $workspaceTools
-bindsym $mod+Shift+6 move container to workspace $workspaceWriter
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+9 move container to workspace $workspaceChat
-bindsym $mod+Shift+0 move container to workspace $workspaceMusic
+bindsym $mod+Shift+1 $workspaceManager move $workspaceHome
+bindsym $mod+Shift+2 $workspaceManager move $workspaceCode
+bindsym $mod+Shift+3 $workspaceManager move $workspaceTerminal
+bindsym $mod+Shift+4 $workspaceManager move $workspaceEditor
+bindsym $mod+Shift+5 $workspaceManager move $workspaceTools
+bindsym $mod+Shift+6 $workspaceManager move $workspaceWriter
+bindsym $mod+Shift+7 $workspaceManager move 7
+bindsym $mod+Shift+9 $workspaceManager move $workspaceChat
+bindsym $mod+Shift+0 $workspaceManager move $workspaceMusic
 
 assign [class="Firefox"] $workspaceHome
 assign [class="qutebrowser"] $workspaceHome
+assign [window_role="browser"] $workspaceHome  # brave
 assign [class="Xchat"] $workspaceChat
 assign [class="skypeforlinux"] $workspaceChat
 assign [class="Unity"] $workspaceEditor
@@ -103,7 +106,9 @@ assign [class="TeXstudio"] $workspaceWriter
 assign [class="libreoffice"] $workspaceWriter
 assign [class="robomongo"] $workspaceTools
 assign [class="Slack"] $workspaceChat
+assign [instance="slack"] $workspaceChat
 for_window [class="Spotify"] move to workspace $workspaceMusic
+for_window [class="Slack"] move to workspace $workspaceChat
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -191,8 +196,10 @@ client.urgent 		$urgent-bg-color   $urgent-bg-color   $text-color	    $indicator
 # finds out, if available)
 bar {
     output HDMI-1-1
+    # ignore_workspaces_ending_with "_"
     output DP-1-1
     status_command 2>/tmp/i3blocksSmall.err i3blocks -v -c ~/.config/i3/configBlocksSmall | tee /tmp/i3blocksSmall.out
+    strip_workspace_numbers yes
 
 	colors {
 		background $bg-color
@@ -207,7 +214,9 @@ bar {
 bar {
     output primary
     tray_output primary
+    # ignore_workspaces_ending_with "_"
     status_command 2>/tmp/i3blocks.err i3blocks -v -c ~/.config/i3/configBlocks | tee /tmp/i3blocks.out
+    strip_workspace_numbers yes
 	colors {
 		background $bg-color
 	    separator #757575
@@ -223,7 +232,8 @@ bindsym --release $mod+shift+k exec xkill
 
 no_focus [window_role="pop-up"]
 
-exec --no-startup-id qutebrowser
+exec --no-startup-id brave
+exec --no-startup-id slack
 exec --no-startup-id spotify
 
 exec --no-startup-id compton -f
@@ -269,8 +279,8 @@ exec --no-startup-id sleep 2 && xrandr --output eDP-1-1 --primary --mode 1920x10
 for_window [class="Gcolor3"] floating enable
 for_window [window_role="vimInput"] floating enable
 
-exec --no-startup-id i3-msg "workspace 2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
-exec --no-startup-id i3-msg 'workspace 2|Code  ; exec termite -t vvim'
-exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
-exec --no-startup-id i3-msg "workspace 2|Code  ; exec termite"
+exec --no-startup-id i3-msg "workspace 2:2|Code  ; append_layout /home/aron/.config/i3/workspace-2.json"
+exec --no-startup-id i3-msg 'workspace 2:2|Code  ; exec termite -t vvim'
+exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
+exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
 exec --no-startup-id dunst -config /home/aron/.config/dunstrc

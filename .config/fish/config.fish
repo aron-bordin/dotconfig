@@ -53,11 +53,13 @@ end
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx GEM_PATH $HOME/.gem/ruby/2.6.0/bin
 set -gx EDITOR vim
+set -gx BROWSER /usr/bin/brave
 set -gx ARON_LOCAL_PATH $HOME/.local/bin
  
 set -gx PATH $ARON_GEM_PATH $PATH
 set -gx PATH $ARON_LOCAL_PATH $PATH
 set -gx XDG_CURRENT_DESKTOP GNOME
+set -gx XDG_DATA_DIRS $XDG_DATA_DIRS:/usr/share/:/usr/local/share/:$HOME/.local/share/
 
 set -gx FZF_DEFAULT_OPTS "--no-mouse --ansi --tabstop=4 --exit-0 --layout=reverse -m --height 50% --border"
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git --exclude venv --exclude node_modules'

@@ -25,6 +25,7 @@ Plug 'ervandew/supertab'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'  " ranger dep
 Plug 'inside/vim-search-pulse'
+Plug 'hashivim/vim-terraform'
 Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -33,11 +34,11 @@ Plug 'Konfekt/FastFold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
 Plug 'matze/vim-move'
-Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " Plug 'nvie/vim-flake8'
 Plug 'posva/vim-vue'
+Plug 'roman/golden-ratio'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'takac/vim-hardtime'
@@ -54,7 +55,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'xolox/vim-misc'
-Plug 'zhaocai/GoldenView.Vim'
 Plug 'Yggdroot/indentLine'
 Plug 'ycmjason/html5.vim'
 
@@ -303,7 +303,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint', 'prettier'],
-\   'python': ['autopep8', 'flake8', 'yapf'],
+\   'python': ['autopep8']
 \}
 
 let g:ale_linters = {
@@ -342,7 +342,6 @@ set title
 set columns=120
 set textwidth=120
 
-let g:airline#extensions#tabline#enabled = 1
 let g:move_key_modifier = 'S'
 
 function! WinLabel()
@@ -384,7 +383,6 @@ let g:highlightedyank_highlight_duration = 1000
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#max_info_width = 0
-autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
 let g:jedi#completions_enabled = 0
 
 if has('autocmd') && v:version > 701
@@ -420,5 +418,10 @@ let test#python#pytest#options = {
 if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 
 set secure " END OF CONFIG
