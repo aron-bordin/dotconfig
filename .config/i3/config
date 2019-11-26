@@ -284,3 +284,4 @@ exec --no-startup-id i3-msg 'workspace 2:2|Code  ; exec termite -t vvim'
 exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
 exec --no-startup-id dunst -config /home/aron/.config/dunstrc
+exec --no-startup-id nm-applet

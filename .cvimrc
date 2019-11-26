@@ -1,0 +1,29 @@
+set scalehints
+set linkanimations
+set dimhintcharacters
+
+let configpath = '/home/aron/.cvimrc'
+set localconfig
+
+set showtabindices
+set completeonopen
+set sortlinkhints
+
+let barposition = "bottom"
+let mapleader = ","
+command g tabnew google
+map <Leader>r reloadTabUncached
+map <C-u> scrollPageUp
+map <C-d> scrollPageDown
+map <C-m> lastUsedTab
+map <Leader><Space> clearSearchHighlight
+map b :tabnew& 
+map d closeTab
+map u lastClosedTab
+
+let searchengine y = ["https://www.youtube.com", "https://www.youtube.com/results?search_query=%s"]
+let searchengine w = ["https://en.wikipedia.org", "https://pt.wikipedia.org/wiki/%s"]
+
+let completionengines = ["google", "y"]
+
+let searchalias g = "google"
