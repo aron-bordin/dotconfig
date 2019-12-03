@@ -1,3 +1,0 @@
-#!/bin/bash
-
-termite -e "fish -C \"vim $@\""

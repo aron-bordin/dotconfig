@@ -1,4 +1,4 @@
-function fish_greeting
+function _fish_greeting
 	set_color "#FFFF00"
 	echo ""
 	echo "Welcome to the Cyberspace"
@@ -6,4 +6,7 @@ function fish_greeting
 	echo ""
 	echo "Powered by Hosaka ®"
 	echo ""	
+end
+
+function fish_greeting
 end

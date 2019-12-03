@@ -1,3 +1,0 @@
-#!/bin/bash
-
-termite --role="vimInput" -e "fish -c \"vim $@\""

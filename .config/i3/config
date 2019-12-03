@@ -8,7 +8,7 @@ bindsym $mod+Shift+space floating toggle
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -251,8 +251,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 
-bindsym $mod+d exec rofi -show run -font "Caterell Regular 13"
-bindsym $mod+Tab exec rofi -show window -font "Caterell Regular 13"
+bindsym $mod+d exec fish -c "rofi -show run -font 'Caterell Regular 13'"
+bindsym $mod+Tab exec fish -c "rofi -show window -font 'Caterell Regular 13'"
  
 focus_on_window_activation urgent
 
@@ -285,3 +285,5 @@ exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
 exec --no-startup-id i3-msg "workspace 2:2|Code  ; exec termite"
 exec --no-startup-id dunst -config /home/aron/.config/dunstrc
 exec --no-startup-id nm-applet
+
+bindsym ctrl+Return exec ranger-terminal

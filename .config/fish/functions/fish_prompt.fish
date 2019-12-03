@@ -2,20 +2,13 @@ set TEXT_COLOR "#FFFF00"
 set INFO_COLOR "#00FF00"
 
 function fish_prompt
-    if test -z $WINDOW
-        printf '{%s%s%s at %s%s%s%s%s%s%s}$ ' \
-            (set_color $TEXT_COLOR) (echo "Aron") \
-            (set_color $INFO_COLOR) \
-            (set_color $TEXT_COLOR) (hostname|cut -d . -f 1) \
-            (set_color $fish_color_cwd) (prompt_pwd) \
-            (set_color $TEXT_COLOR) (__fish_git_prompt) \
-            (set_color normal)
-    
-        else 
-	
-        printf '{%s%s%s at %s%s%s(%s)%s%s%s%s}$ ' (set_color "#FFFF00") (echo "Aron") (set_color "#00FF00") (set_color "#FFFF00") (hostname|cut -d . -f 1) (set_color $fish_color_cwd) (echo $WINDOW) (prompt_pwd)(set_color "#FFFF00") (__fish_git_prompt) (set_color normal)
-    
-    end
+    printf '{%s%s%s at %s%s%s%s%s%s%s}$ ' \
+        (set_color $TEXT_COLOR) (echo "Aron") \
+        (set_color $INFO_COLOR) \
+        (set_color $TEXT_COLOR) (hostname|cut -d . -f 1) \
+        (set_color $fish_color_cwd) (prompt_pwd) \
+        (set_color $TEXT_COLOR) (__fish_git_prompt) \
+        (set_color normal)
 end
 
 # Fish git prompt
