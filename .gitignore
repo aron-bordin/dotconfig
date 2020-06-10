@@ -1,2 +1,3 @@
 /nvim/bundle/
 **/__pycache__
+.local/bin

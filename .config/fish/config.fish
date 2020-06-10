@@ -20,8 +20,7 @@ abbr lss "ls -lha"
 # environment variables
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
 set -gx GEM_PATH $HOME/.gem/ruby/2.6.0/bin
-set -gx EDITOR vim-terminal
-set -gx PAGER nvimpager
+set -gx EDITOR vim
 set -gx BROWSER /usr/bin/brave
 set -gx ARON_LOCAL_PATH $HOME/.local/bin
  

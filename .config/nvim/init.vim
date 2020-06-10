@@ -13,7 +13,6 @@ Plug '/usr/bin/fzf'
 Plug 'airblade/vim-gitgutter'
 Plug 'brooth/far.vim'
 Plug 'carlitux/deoplete-ternjs'
-"Plug 'chriskempson/base16-vim'
 Plug 'danielwe/base16-vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'dense-analysis/ale'
@@ -25,10 +24,12 @@ Plug 'ervandew/supertab'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'  " ranger dep
 Plug 'inside/vim-search-pulse'
+Plug 'google/vim-searchindex'
 Plug 'hashivim/vim-terraform'
 Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
 Plug 'machakann/vim-highlightedyank'
@@ -36,7 +37,6 @@ Plug 'majutsushi/tagbar'
 Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-" Plug 'nvie/vim-flake8'
 Plug 'posva/vim-vue'
 Plug 'roman/golden-ratio'
 Plug 'ryanoasis/vim-devicons'
@@ -179,7 +179,7 @@ set number
 
 
 " Use bash
-set shell=/usr/bin/fish
+set shell=/bin/bash
 
 "python with virtualenv support
 
@@ -228,7 +228,6 @@ nnoremap th :tabfirst<CR>
 nnoremap tl :tablast<CR>
 
 inoremap <C-o> <Esc>O<Esc>jA
-nmap <silent> <C-i> <Plug>(pydocstring)
 
 set pastetoggle=<F3>
 
@@ -339,8 +338,6 @@ set showmatch
 set smartcase
 set visualbell
 set title
-set columns=120
-set textwidth=120
 
 let g:move_key_modifier = 'S'
 
@@ -423,5 +420,7 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+
+let g:sneak#label = 1
 
 set secure " END OF CONFIG
