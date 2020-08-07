@@ -57,6 +57,15 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'xolox/vim-misc'
 Plug 'Yggdroot/indentLine'
 Plug 'ycmjason/html5.vim'
+Plug 'cespare/vim-toml'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 
 " ####### End-Plugins ####
 
@@ -191,6 +200,10 @@ if 'VIRTUAL_ENV' in os.environ:
   project_base_dir in sys.path or sys.path.insert(0, project_base_dir)
 
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  if not os.path.exists(activate_this):
+    import shutil
+    shutil.copyfile('/home/aron/Programming/activate_this.py', activate_this)
+
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 " Enable folding
@@ -306,9 +319,18 @@ let g:ale_fixers = {
 \}
 
 let g:ale_linters = {
-\   'python': ['autopep8', 'flake8', 'yapf'],
+\   'python': ['black', 'flake8'],
 \   'javascript': ['prettier']
 \}
+
+call ale#linter#Define('go', {
+\   'name': 'revive',
+\   'output_stream': 'both',
+\   'executable': 'revive',
+\   'read_buffer': 0,
+\   'command': 'revive %t',
+\   'callback': 'ale#handlers#unix#HandleAsWarning',
+\})
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_smartcase = 1
@@ -422,5 +444,17 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 
 let g:sneak#label = 1
+
+let g:LanguageClient_serverCommands = {
+       \ 'go': ['gopls']
+       \ }
+" Run gofmt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+set shortmess=a
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 set secure " END OF CONFIG

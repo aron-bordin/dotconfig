@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/aron/Programming/Cogite/co-proxy/infra'
 let g:netrw_dirhist_3='/home/aron/Programming/Emptor/ops-ui/.circleci'
 let g:netrw_dirhist_2='/home/aron/Programming/Emptor/ops-ui'
 let g:netrw_dirhist_1='/'

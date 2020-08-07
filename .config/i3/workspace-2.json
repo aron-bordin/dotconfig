@@ -1,58 +1,49 @@
 // vim:ts=4:sw=4:et
 {
-    // splitv split container with 2 children
+    "border": "pixel",
+    "current_border_width": 1,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 362,
+       "width": 574,
+       "x": 0,
+       "y": 0
+    },
+    "name": "fish /home/aron",
+    "percent": 0.8,
+    "swallows": [
+       {
+       // "class": "^Termite$",
+       // "instance": "^termite$",
+       // "title": "^fish\\ \\/home\\/aron$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    // splith split container with 1 children
     "border": "pixel",
     "floating": "auto_off",
-    "layout": "splitv",
-    "percent": 1,
+    "layout": "splith",
+    "percent": 0.2,
     "type": "con",
     "nodes": [
-        {
-            // tabbed split container with 1 children
-            "border": "pixel",
-            "floating": "auto_off",
-            "layout": "tabbed",
-            "percent": 0.8,
-            "type": "con",
-            "nodes": [
-                {
-                    "border": "none",
-                    "current_border_width": 1,
-                    "floating": "auto_off",
-                    "geometry": {
-                       "height": 600,
-                       "width": 800,
-                       "x": 0,
-                       "y": 0
-                    },
-                    "name": "fish /home/aron",
-                    "percent": 1,
-                    "swallows": [
-                       {
-                       // "class": "^Alacritty$",
-                       // "instance": "^Alacritty$",
-                       // "title": "^fish\\ \\/home\\/aron$"
-                       }
-                    ],
-                    "type": "con"
-                }
-            ]
-        },
         {
             // splith split container with 2 children
             "border": "pixel",
             "floating": "auto_off",
             "layout": "splith",
-            "percent": 0.2,
+            "percent": null,
             "type": "con",
             "nodes": [
                 {
-                    "border": "none",
+                    "border": "pixel",
                     "current_border_width": 1,
                     "floating": "auto_off",
                     "geometry": {
-                       "height": 600,
-                       "width": 800,
+                       "height": 362,
+                       "width": 574,
                        "x": 0,
                        "y": 0
                     },
@@ -60,30 +51,30 @@
                     "percent": 0.5,
                     "swallows": [
                        {
-                       // "class": "^Alacritty$",
-                       // "instance": "^Alacritty$",
+                       // "class": "^Termite$",
+                       // "instance": "^termite$",
                        // "title": "^fish\\ \\/home\\/aron$"
                        }
                     ],
                     "type": "con"
                 },
                 {
-                    "border": "none",
+                    "border": "pixel",
                     "current_border_width": 1,
                     "floating": "auto_off",
                     "geometry": {
-                       "height": 600,
-                       "width": 800,
+                       "height": 362,
+                       "width": 574,
                        "x": 0,
                        "y": 0
                     },
-                    "name": "fish /home/aron",
+                    "name": "vvim",
                     "percent": 0.5,
                     "swallows": [
                        {
-                       // "class": "^Alacritty$",
-                       // "instance": "^Alacritty$",
-                       // "title": "^fish\\ \\/home\\/aron$"
+                       // "class": "^Termite$",
+                       // "instance": "^termite$",
+                       // "title": "^vvim$"
                        }
                     ],
                     "type": "con"

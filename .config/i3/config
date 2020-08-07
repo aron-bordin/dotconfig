@@ -98,6 +98,7 @@ bindsym $mod+Shift+0 $workspaceManager move $workspaceMusic
 assign [class="Firefox"] $workspaceHome
 assign [class="qutebrowser"] $workspaceHome
 assign [window_role="browser"] $workspaceHome  # brave
+assign [class="firefox"] $workspaceHome
 assign [class="Xchat"] $workspaceChat
 assign [class="skypeforlinux"] $workspaceChat
 assign [class="Unity"] $workspaceEditor
@@ -252,7 +253,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 
 bindsym $mod+d exec fish -c "rofi -show run -font 'Caterell Regular 13'"
-bindsym $mod+Tab exec fish -c "rofi -show window -font 'Caterell Regular 13'"
+bindsym $mod+Tab exec fish -c "rofi -show window -font 'Caterell Regular 13' -matching fuzzy -sidebar-mode -scroll-method 1"
  
 focus_on_window_activation urgent
 

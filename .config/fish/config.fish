@@ -19,13 +19,17 @@ abbr lss "ls -lha"
 
 # environment variables
 set -gx SSH_AUTH_SOCK /run/user/1000/keyring/ssh
-set -gx GEM_PATH $HOME/.gem/ruby/2.6.0/bin
+set -gx GEM_PATH $HOME/.gem/ruby/2.7.0/bin
+set -gx GEM_PATH_OLD $HOME/.gem/ruby/2.6.0/bin
+set -gx GO_PATH $HOME/go/bin
 set -gx EDITOR vim
 set -gx BROWSER /usr/bin/brave
-set -gx ARON_LOCAL_PATH $HOME/.local/bin
+set -gx LOCAL_PATH $HOME/.local/bin
  
-set -gx PATH $ARON_GEM_PATH $PATH
-set -gx PATH $ARON_LOCAL_PATH $PATH
+set -gx PATH $GEM_PATH_OLD $PATH
+set -gx PATH $GEM_PATH $PATH
+set -gx PATH $GO_PATH $PATH
+set -gx PATH $LOCAL_PATH $PATH
 set -gx XDG_CURRENT_DESKTOP GNOME
 set -gx XDG_DATA_DIRS $XDG_DATA_DIRS:/usr/share/:/usr/local/share/:$HOME/.local/share/
 
